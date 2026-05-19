@@ -3,10 +3,22 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
 }
 
 body,
@@ -22,6 +34,13 @@ blockquote,
 dl,
 dd {
   margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 img,
@@ -40,19 +59,10 @@ select {
   font: inherit;
 }
 
-body {
-  line-height: 1.6;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1.1;
-  font-weight: 700;
-  text-wrap: balance;
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 a {
@@ -60,18 +70,14 @@ a {
   text-decoration: none;
 }
 
-code {
+code,
+pre {
   font-family: var(--font-mono);
 }
 
-pre {
-  overflow-x: auto;
-  padding: 1rem;
-  border-radius: var(--radius-lg);
-
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
+/* =========================================================
+   DESIGN TOKENS
+========================================================= */
 
 :root {
   /* Fonts */
@@ -85,12 +91,14 @@ pre {
   --radius-xl: 1.5rem;
 
   /* Layout */
-  --container-width: 72rem;
+  --container-width: 76rem;
   --navbar-height: 4rem;
 
   /* Colors */
   --background: #09090b;
-  --surface: #111113;
+
+  --surface: rgba(17, 17, 19, 0.7);
+  --surface-solid: #111113;
   --surface-hover: #18181b;
 
   --border: #27272a;
@@ -112,6 +120,7 @@ pre {
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
   --text-4xl: 3rem;
+  --text-5xl: 4rem;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -120,95 +129,146 @@ pre {
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 4rem;
+
+  /* Shadows */
+  --shadow-glow:
+    0 0 0 1px rgba(16, 185, 129, 0.04),
+    0 0 30px rgba(16, 185, 129, 0.08);
+
+  --shadow-card:
+    0 10px 30px rgba(0, 0, 0, 0.25);
 }
+
+/* =========================================================
+   BASE
+========================================================= */
 
 html {
   font-family: var(--font-sans);
+
   background: var(--background);
   color: var(--foreground);
-
-  scroll-behavior: smooth;
-}
-
-body {
-  min-height: 100vh;
-  background: var(--background);
-  color: var(--foreground);
-  overflow-x: hidden;
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-* {
-  border-color: var(--border);
+body {
+  position: relative;
+
+  min-height: 100vh;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  line-height: 1.6;
+
+  overflow-x: hidden;
 }
 
-::selection {
-  background: var(--accent);
-  color: black;
+/* =========================================================
+   BACKGROUND EFFECTS
+========================================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(16, 185, 129, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(16, 185, 129, 0.05),
+      transparent 30%
+    );
+
+  pointer-events: none;
+  z-index: -2;
 }
 
-.container {
-  width: 100%;
-  max-width: var(--container-width);
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
+body::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+
+  pointer-events: none;
+  z-index: -1;
 }
 
-.surface {
-  background: var(--surface);
-  border: 1px solid var(--border);
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.05;
+  font-weight: 700;
+
+  text-wrap: balance;
+
+  letter-spacing: -0.04em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  color: var(--foreground-muted);
+  font-size: var(--text-lg);
+  max-width: 42rem;
 }
 
 .text-muted {
   color: var(--foreground-muted);
 }
 
-.link {
-  color: var(--foreground-muted);
-  transition: color 150ms ease;
+.mono {
+  font-family: var(--font-mono);
 }
 
-.link:hover {
-  color: var(--foreground);
-}
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.container {
+  width: 100%;
+  max-width: var(--container-width);
 
-  height: 2.75rem;
+  margin-inline: auto;
 
-  padding-inline: 1rem;
-
-  border-radius: var(--radius-md);
-
-  background: var(--foreground);
-  color: var(--background);
-
-  font-size: var(--text-sm);
-  font-weight: 500;
-
-  transition:
-    opacity 150ms ease,
-    transform 150ms ease;
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-secondary {
-  background: var(--surface);
-  color: var(--foreground);
-
-  border: 1px solid var(--border);
+  padding-inline: clamp(1rem, 4vw, 2rem);
 }
 
 .app-shell {
@@ -219,5 +279,249 @@ body {
 }
 
 .page-section {
-  padding-block: clamp(3rem, 8vw, 6rem);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+.link {
+  color: var(--foreground-muted);
+
+  transition:
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+.link:hover {
+  color: var(--foreground);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  height: 2.9rem;
+
+  padding-inline: 1.25rem;
+
+  border-radius: var(--radius-md);
+
+  background: var(--foreground);
+  color: var(--background);
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease,
+    background 150ms ease;
+}
+
+.btn:hover {
+  opacity: 0.92;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--surface-solid);
+  color: var(--foreground);
+
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+}
+
+/* =========================================================
+   SURFACES / CARDS
+========================================================= */
+
+.surface {
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(10px);
+}
+
+.card {
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-xl);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: var(--shadow-card);
+
+  transition:
+    border-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.card:hover {
+  border-color: rgba(16, 185, 129, 0.2);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    var(--shadow-card),
+    var(--shadow-glow);
+}
+
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* =========================================================
+   TERMINAL UI
+========================================================= */
+
+.terminal {
+  background: #0b0b0d;
+
+  border: 1px solid #1f1f23;
+
+  border-radius: var(--radius-xl);
+
+  overflow: hidden;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(16, 185, 129, 0.04);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0.85rem 1rem;
+
+  border-bottom: 1px solid #1f1f23;
+
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+
+  color: var(--accent);
+}
+
+.terminal-body {
+  padding: 1.5rem;
+
+  font-family: var(--font-mono);
+
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   CODE BLOCKS
+========================================================= */
+
+pre {
+  overflow-x: auto;
+
+  padding: 1rem;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface-solid);
+
+  border: 1px solid var(--border);
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+  background: var(--accent);
+  color: black;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f1f23;
+
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a30;
+}
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+.border-subtle {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #10b981
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fade-top {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%
+  );
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .page-section {
+    padding-block: 4rem;
+  }
+
+  .section-title {
+    font-size: 3rem;
+  }
+
+  .terminal-body {
+    font-size: 0.875rem;
+  }
 }
