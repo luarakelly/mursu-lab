@@ -37,3 +37,6 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+
+# local development files
+local/
