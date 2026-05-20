@@ -54,8 +54,6 @@ export const colors = {
    * =========================================================
    * SEMANTIC TOKENS
    * =========================================================
-   *
-   * THESE are consumed by components.
    */
 
   text: {
@@ -90,6 +88,12 @@ export const colors = {
     error: "#fee2e2",
   },
 
+  surface: {
+    base: "#ffffff",
+    raised: "#f9fafb",
+    sunken: "#f3f4f6",
+  },
+
   border: {
     subtle: "#f3f4f6",
     muted: "#e5e7eb",
@@ -117,20 +121,31 @@ export const colors = {
     warning: "#d97706",
     error: "#dc2626",
   },
-  alpha: {
-  black10: "rgba(0,0,0,0.1)",
-  black20: "rgba(0,0,0,0.2)",
-  black50: "rgba(0,0,0,0.5)",
 
-  white10: "rgba(255,255,255,0.1)",
-},
-focus: {
-  ring: "#3b82f6",
-  outline: "#93c5fd",
-},
-overlay: {
-  backdrop: "rgba(0,0,0,0.5)",
-},
+  alpha: {
+    black10: "rgba(0,0,0,0.1)",
+    black20: "rgba(0,0,0,0.2)",
+    black50: "rgba(0,0,0,0.5)",
+
+    white10: "rgba(255,255,255,0.1)",
+  },
+
+  focus: {
+    ring: "#3b82f6",
+    ringOffset: "#ffffff",
+    outline: "#93c5fd",
+  },
+
+  overlay: {
+    backdrop: "rgba(0,0,0,0.5)",
+  },
+
+  disabled: {
+    opacity: 0.5,
+    text: "#9ca3af",
+    bg: "#e5e7eb",
+    border: "#d1d5db",
+  },
 
   /*
    * =========================================================

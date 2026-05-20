@@ -1,12 +1,21 @@
 export const zIndex = {
-  hide: -1,
+  /*
+   * =========================================================
+   * STACKING CONTEXT
+   * =========================================================
+   */
+
   base: 0,
+  raised: 10,
+
   dropdown: 100,
   sticky: 200,
-  overlay: 300,
-  modal: 400,
-  popover: 500,
-  toast: 600,
-} as const
 
-export type ZIndex = typeof zIndex
+  overlay: 1000,
+  modal: 1100,
+  popover: 1200,
+  tooltip: 1300,
+  toast: 1400,
+} as const;
+
+export type ZIndex = typeof zIndex;

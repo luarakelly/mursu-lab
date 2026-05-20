@@ -1,7 +1,13 @@
 export const typography = {
+  /*
+   * =========================================================
+   * TYPOGRAPHY SCALE
+   * =========================================================
+   */
+
   fontFamily: {
-    sans: `ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial`,
-    mono: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas`,
+    sans: "system-ui, sans-serif",
+    mono: "ui-monospace, monospace",
   },
 
   fontSize: {
@@ -15,6 +21,12 @@ export const typography = {
     "4xl": "36px",
   },
 
+  lineHeight: {
+    tight: 1.2,
+    normal: 1.5,
+    relaxed: 1.7,
+  },
+
   fontWeight: {
     regular: 400,
     medium: 500,
@@ -22,11 +34,41 @@ export const typography = {
     bold: 700,
   },
 
-  lineHeight: {
-    tight: 1.2,
-    normal: 1.5,
-    relaxed: 1.75,
-  },
-} as const
+  /*
+   * Semantic text styles (VERY important for production)
+   */
 
-export type Typography = typeof typography
+  textStyle: {
+    bodySm: {
+      fontSize: "14px",
+      lineHeight: 1.5,
+      fontWeight: 400,
+    },
+
+    bodyMd: {
+      fontSize: "16px",
+      lineHeight: 1.6,
+      fontWeight: 400,
+    },
+
+    headingSm: {
+      fontSize: "18px",
+      lineHeight: 1.4,
+      fontWeight: 600,
+    },
+
+    headingMd: {
+      fontSize: "24px",
+      lineHeight: 1.3,
+      fontWeight: 700,
+    },
+
+    headingLg: {
+      fontSize: "32px",
+      lineHeight: 1.2,
+      fontWeight: 700,
+    },
+  },
+} as const;
+
+export type Typography = typeof typography;
