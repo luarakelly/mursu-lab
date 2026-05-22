@@ -1,46 +1,23 @@
 import React from "react";
 
-import {
-  spacing,
-} from "../../design-tokens";
-
-type SpaceKey =
-  keyof typeof spacing.stack;
-
-export interface SpacerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  size?: SpaceKey;
-
+export type SpacerProps = React.HTMLAttributes<HTMLDivElement> & {
+  size?: React.CSSProperties["width"];
   axis?: "vertical" | "horizontal";
-}
+};
 
 export function Spacer({
-  size = "md",
-
+  size = "16px",
   axis = "vertical",
-
-  className,
   style,
-
   ...props
 }: SpacerProps) {
   return (
     <div
       {...props}
-      className={className}
       style={{
-        width:
-          axis === "horizontal"
-            ? spacing.stack[size]
-            : undefined,
-
-        height:
-          axis === "vertical"
-            ? spacing.stack[size]
-            : undefined,
-
         flexShrink: 0,
-
+        width: axis === "horizontal" ? size : undefined,
+        height: axis === "vertical" ? size : undefined,
         ...style,
       }}
     />

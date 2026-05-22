@@ -1,15 +1,15 @@
 import React from "react";
 
-type GridProps = React.HTMLAttributes<HTMLDivElement> & {
-  columns?: number;
+export type GridProps = React.HTMLAttributes<HTMLDivElement> & {
+  columns?: React.CSSProperties["gridTemplateColumns"];
+  rows?: React.CSSProperties["gridTemplateRows"];
   gap?: React.CSSProperties["gap"];
-  minItemWidth?: string;
+  align?: React.CSSProperties["alignItems"];
 };
 
 export function Grid({
   columns,
-  gap = "16px",
-  minItemWidth = "200px",
+  rows,
   style,
   children,
   ...props
@@ -19,10 +19,8 @@ export function Grid({
       {...props}
       style={{
         display: "grid",
-        gap,
-        gridTemplateColumns: columns
-          ? `repeat(${columns}, minmax(0, 1fr))`
-          : `repeat(auto-fit, minmax(${minItemWidth}, 1fr))`,
+        gridTemplateColumns: columns,
+        gridTemplateRows: rows,
         ...style,
       }}
     >
