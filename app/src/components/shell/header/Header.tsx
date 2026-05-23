@@ -139,7 +139,7 @@ export function GithubLink({ href }: { href: string }) {
 // NAV CONTROLS
 //
 
-export default function NavControls({
+export default function HeaderControls({
   githubUrl,
 }: {
   githubUrl: string;

@@ -11,7 +11,7 @@ import {
 } from "../../../ui-lib/compositions/header/Header";
 
 import { FlaskConical } from "lucide-react";
-import NavControls from "./NavIcons.tsx";
+import HeaderControls from "./Header.tsx";
 
 const GITHUB_URL = "https://github.com/luarakelly";
 
@@ -81,7 +81,7 @@ function isActive(href: string) {
     </HeaderCenter>
 
     {/* RIGHT */}
-    <NavControls
+    <HeaderControls
       githubUrl={GITHUB_URL}
       navLinks={navLinks}
       currentPath={currentPath}
