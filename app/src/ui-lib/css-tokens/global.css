@@ -60,21 +60,46 @@
 }
 
 /* =========================================================
-   RESPONSIVE UTILITY CLASSES (optional fallback layer)
+   RESPONSIVE UTILITY CLASSES (fallback layer)
    ========================================================= */
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
-@media (min-width: 768px) {
-  .md\:hide {
-    display: none;
+.show {
+  display: block !important;
+}
+
+/* SM */
+@media (min-width: 640px) {
+  .sm\:hide {
+    display: none !important;
+  }
+
+  .sm\:show {
+    display: block !important;
   }
 }
 
+/* MD */
 @media (min-width: 768px) {
+  .md\:hide {
+    display: none !important;
+  }
+
   .md\:show {
-    display: block;
+    display: block !important;
+  }
+}
+
+/* LG */
+@media (min-width: 1024px) {
+  .lg\:hide {
+    display: none !important;
+  }
+
+  .lg\:show {
+    display: block !important;
   }
 }
