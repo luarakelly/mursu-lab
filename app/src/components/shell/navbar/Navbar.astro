@@ -1,0 +1,92 @@
+---
+import {
+  Header,
+  HeaderLayout,
+  HeaderLeft,
+  HeaderCenter,
+  HeaderBrand,
+  HeaderTextGroup,
+  HeaderNav,
+  HeaderLink,
+} from "../../../ui-lib/compositions/header/Header";
+
+import { FlaskConical } from "lucide-react";
+import NavControls from "./NavIcons.tsx";
+
+const GITHUB_URL = "https://github.com/luarakelly";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<Header
+  sticky
+  className="bg-[var(--surface)] border-b border-[var(--border)] backdrop-blur-md text-[var(--foreground)] font-mono"
+>
+  <HeaderLayout className="gap-6 px-6">
+
+    {/* LEFT */}
+    <HeaderLeft>
+      <HeaderBrand
+        href="/"
+        className="flex items-center gap-2 text-inherit no-underline"
+      >
+        <FlaskConical
+          size={26}
+          strokeWidth={1.75}
+          className="text-[var(--accent)] shrink-0"
+          aria-hidden="true"
+        />
+
+        <HeaderTextGroup className="leading-tight">
+          <span className="text-base font-semibold tracking-tight">
+            MURSU LAB
+          </span>
+
+          <span className="text-[var(--text-xs)] text-[var(--foreground-muted)] whitespace-nowrap">
+            Engineering systems. Sharing the process.
+          </span>
+        </HeaderTextGroup>
+      </HeaderBrand>
+    </HeaderLeft>
+
+    {/* CENTER */}
+    <HeaderCenter>
+      <HeaderNav>
+        {navLinks.map(({ href, label }) => (
+          <HeaderLink
+            key={href}
+            href={href}
+            className={[
+              "relative px-4 py-6 text-sm font-mono text-inherit no-underline",
+              isActive(href) &&
+                "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[2px] after:bg-[var(--accent)] after:rounded-t"
+            ].join(" ")}
+          >
+            {label}
+          </HeaderLink>
+        ))}
+      </HeaderNav>
+    </HeaderCenter>
+
+    {/* RIGHT */}
+    <NavControls
+      githubUrl={GITHUB_URL}
+      navLinks={navLinks}
+      currentPath={currentPath}
+      client:load
+    />
+
+  </HeaderLayout>
+</Header>
