@@ -1,52 +1,28 @@
 import * as React from "react";
 import { Flex } from "./Flex";
 
-/** ✔ simplified Flex
-✔ default column flow
-✔ consistent spacing
-✔ used for lists / slots / groups */
-
-type StackProps = React.ComponentProps<typeof Flex> & {
+type StackProps = Omit<
+  React.ComponentProps<typeof Flex>,
+  "direction"
+> & {
   direction?: "row" | "column";
+  gap?: React.CSSProperties["gap"];
 };
 
 export function Stack({
   direction = "column",
-  gap = 8,
+  align,
+  justify,
+  wrap,
   ...props
 }: StackProps) {
   return (
     <Flex
       direction={direction}
-      gap={gap}
+      align={align}
+      justify={justify}
+      wrap={wrap}
       {...props}
     />
   );
 }
-
-/**
- * import React from "react";
-
-export type StackProps = React.HTMLAttributes<HTMLDivElement> & {
-  gap?: React.CSSProperties["gap"];
-};
-
-export function Stack({
-  style,
-  children,
-  ...props
-}: StackProps) {
-  return (
-    <div
-      {...props}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
- */
