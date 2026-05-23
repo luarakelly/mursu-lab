@@ -44,31 +44,19 @@ export function HeaderLayout({
   return (
     <Flex
       {...props}
-      className={className}
       align="center"
       justify="space-between"
+      wrap="nowrap"
+      fullWidth
+      minWidth={0}
+      className={className}
       style={{
+        gap: "var(--space-4)",
         width: "100%",
         ...style,
       }}
     />
   );
-}
-
-//
-// SECTIONS
-//
-
-export function HeaderLeft(props: React.HTMLAttributes<HTMLDivElement>) {
-  return <Flex {...props} align="center" shrink={0} />;
-}
-
-export function HeaderCenter(props: React.HTMLAttributes<HTMLDivElement>) {
-  return <Flex {...props} align="center" justify="center" grow={1} />;
-}
-
-export function HeaderRight(props: React.HTMLAttributes<HTMLDivElement>) {
-  return <Flex {...props} align="center" shrink={0} />;
 }
 
 //

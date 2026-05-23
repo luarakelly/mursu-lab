@@ -2,13 +2,14 @@
 import {
   Header,
   HeaderLayout,
-  HeaderLeft,
-  HeaderCenter,
   HeaderBrand,
   HeaderTextGroup,
   HeaderNav,
   HeaderLink,
 } from "../../../ui-lib/compositions/header/Header";
+
+import { Left } from "../../../ui-lib/slots/Left";
+import { Center } from "../../../ui-lib/slots/Center";
 
 import { FlaskConical } from "lucide-react";
 import HeaderControls from "./Header.tsx";
@@ -34,10 +35,10 @@ function isActive(href: string) {
   sticky
   className="bg-[var(--surface)] border-b border-[var(--border)] backdrop-blur-md text-[var(--foreground)] font-mono"
 >
-  <HeaderLayout className="gap-6 px-6">
+  <HeaderLayout className="gap-6 ">
 
     {/* LEFT */}
-    <HeaderLeft>
+    <Left>
       <HeaderBrand
         href="/"
         className="flex items-center gap-2 text-inherit no-underline"
@@ -59,10 +60,10 @@ function isActive(href: string) {
           </span>
         </HeaderTextGroup>
       </HeaderBrand>
-    </HeaderLeft>
+    </Left>
 
     {/* CENTER */}
-    <HeaderCenter>
+    <Center>
       <HeaderNav>
         {navLinks.map(({ href, label }) => (
           <HeaderLink
@@ -78,7 +79,7 @@ function isActive(href: string) {
           </HeaderLink>
         ))}
       </HeaderNav>
-    </HeaderCenter>
+    </Center>
 
     {/* RIGHT */}
     <HeaderControls

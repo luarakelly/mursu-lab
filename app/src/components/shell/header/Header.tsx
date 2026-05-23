@@ -4,9 +4,8 @@
 
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
-
+import { Right } from "../../../ui-lib/slots/Right";
 import {
-  HeaderRight,
   HeaderIconButton,
   HeaderIconLink,
   HeaderAction,
@@ -145,7 +144,7 @@ export default function HeaderControls({
   githubUrl: string;
 }) {
   return (
-    <HeaderRight className="gap-2">
+    <Right className="gap-2">
       <LangToggle />
       <ThemeToggle />
       <GithubLink href={githubUrl} />
@@ -166,7 +165,7 @@ export default function HeaderControls({
       >
         Get in touch
       </HeaderAction>
-    </HeaderRight>
+    </Right>
   );
 }
 
