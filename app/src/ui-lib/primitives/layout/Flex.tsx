@@ -1,68 +1,90 @@
-import React from "react";
+import * as React from "react";
 
-export interface FlexProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+type ElementType = React.ElementType;
+
+type FlexProps<C extends ElementType = "div"> = {
+  as?: C;
+
   direction?: React.CSSProperties["flexDirection"];
-
   align?: React.CSSProperties["alignItems"];
-
   justify?: React.CSSProperties["justifyContent"];
-
   wrap?: React.CSSProperties["flexWrap"];
 
-  gap?: React.CSSProperties["gap"];
-
   grow?: React.CSSProperties["flexGrow"];
-
   shrink?: React.CSSProperties["flexShrink"];
-
   basis?: React.CSSProperties["flexBasis"];
-}
 
-export function Flex({
+  width?: React.CSSProperties["width"];
+  height?: React.CSSProperties["height"];
+
+  minWidth?: React.CSSProperties["minWidth"];
+  maxWidth?: React.CSSProperties["maxWidth"];
+
+  inline?: boolean;
+  fullWidth?: boolean;
+  fullHeight?: boolean;
+
+  style?: React.CSSProperties;
+  className?: string;
+
+  children?: React.ReactNode;
+};
+
+export function Flex<C extends ElementType = "div">({
+  as,
   direction = "row",
-
   align,
   justify,
-
   wrap,
-
-  gap,
 
   grow,
   shrink,
   basis,
 
+  width,
+  height,
+  minWidth,
+  maxWidth,
+
+  inline = false,
+  fullWidth = false,
+  fullHeight = false,
+
   style,
+  className,
   children,
-  ...props
-}: FlexProps) {
+  ...rest
+}: FlexProps<C>) {
+  const Component = as || "div";
+
   return (
-    <div
-      {...props}
+    <Component
+      className={className}
       style={{
-        display: "flex",
+        display: inline ? "inline-flex" : "flex",
 
         flexDirection: direction,
-
         alignItems: align,
-
         justifyContent: justify,
-
         flexWrap: wrap,
 
-        gap,
-
         flexGrow: grow,
-
         flexShrink: shrink,
-
         flexBasis: basis,
+
+        width: fullWidth ? "100%" : width,
+        height: fullHeight ? "100%" : height,
+
+        minWidth: 0,
+        maxWidth,
+
+        boxSizing: "border-box",
 
         ...style,
       }}
+      {...rest}
     >
       {children}
-    </div>
+    </Component>
   );
 }

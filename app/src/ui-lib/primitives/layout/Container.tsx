@@ -1,20 +1,20 @@
-import React from "react";
+import * as React from "react";
 
-export interface ContainerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  maxWidth?: React.CSSProperties["maxWidth"];
+type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+  size?: "sm" | "md" | "lg" | "xl" | "full";
+};
 
-  paddingX?: React.CSSProperties["paddingInline"];
-}
+const sizes = {
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1200px",
+  full: "100%",
+};
 
 export function Container({
-  maxWidth = "1200px",
-
-  paddingX = "16px",
-
+  size = "xl",
   style,
-
-  children,
   ...props
 }: ContainerProps) {
   return (
@@ -22,17 +22,12 @@ export function Container({
       {...props}
       style={{
         width: "100%",
-
-        maxWidth,
-
+        maxWidth: sizes[size],
         marginInline: "auto",
-
-        paddingInline: paddingX,
-
+        paddingInline: 16,
+        boxSizing: "border-box",
         ...style,
       }}
-    >
-      {children}
-    </div>
+    />
   );
 }
