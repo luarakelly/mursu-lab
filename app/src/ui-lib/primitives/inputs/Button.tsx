@@ -1,37 +1,30 @@
-import React from "react";
-
-import {
-  colors,
-  spacing,
-  typography,
-  radius,
-  transitions,
-  borders,
-} from "../../design-tokens";
-
-type FontSizeKey =
-  keyof typeof typography.fontSize;
+import * as React from "react";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: FontSizeKey;
+  as?: "button" | "a";
 
   fullWidth?: boolean;
+
+  /**
+   * Escape hatch for system composition
+   */
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 export function Button({
-  size = "md",
-
+  as,
   fullWidth = false,
-
   className,
   style,
-
   children,
   ...props
 }: ButtonProps) {
+  const Component: any = as ?? "button";
+
   return (
-    <button
+    <Component
       {...props}
       className={className}
       style={{
@@ -39,57 +32,23 @@ export function Button({
         alignItems: "center",
         justifyContent: "center",
 
-        gap: spacing.inline.sm,
-
-        width: fullWidth
-          ? "100%"
-          : undefined,
-
-        paddingInline: spacing.inline.lg,
-        paddingBlock: spacing.stack.sm,
-
-        borderWidth:
-          borders.width.thin,
-
-        borderStyle:
-          borders.style.solid,
-
-        borderColor:
-          colors.border.default,
-
-        borderRadius:
-          radius.control,
-
-        background:
-          colors.background.surface,
-
-        color:
-          colors.text.primary,
-
-        fontFamily:
-          typography.fontFamily.sans,
-
-        fontSize:
-          typography.fontSize[size],
-
-        fontWeight:
-          typography.fontWeight.medium,
-
-        lineHeight:
-          typography.lineHeight.normal,
+        width: fullWidth ? "100%" : undefined,
 
         cursor: "pointer",
+        userSelect: "none",
 
-        transition: `
-          background-color
-          ${transitions.duration.fast}
-          ${transitions.easing.easeOut}
-        `,
+        textDecoration: "none",
+
+        border: "none",
+        background: "transparent",
+
+        padding: 0,
+        margin: 0,
 
         ...style,
       }}
     >
       {children}
-    </button>
+    </Component>
   );
 }
