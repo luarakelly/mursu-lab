@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
 /* =========================================================
    BREAKPOINT SYSTEM
    ========================================================= */
@@ -23,10 +29,28 @@
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1200px;
+
+  /* =========================================================
+     FLUID TYPOGRAPHY SYSTEM
+     ========================================================= */
+
+  /* Base text */
+  --text-xs: clamp(0.75rem, 0.2vw + 0.7rem, 0.8rem);
+  --text-sm: clamp(0.875rem, 0.25vw + 0.8rem, 0.95rem);
+  --text-md: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+  --text-lg: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);
+  --text-xl: clamp(1.25rem, 0.8vw + 1.1rem, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1.2vw + 1.2rem, 2.25rem);
+  --text-3xl: clamp(2rem, 2vw + 1.5rem, 3rem);
+
+  /* line heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
 }
 
 /* =========================================================
-   MEDIA QUERY HELPERS (optional utility layer)
+   MEDIA QUERY HELPERS 
    ========================================================= */
 
 @media (min-width: 640px) {
@@ -60,7 +84,7 @@
 }
 
 /* =========================================================
-   RESPONSIVE UTILITY CLASSES (fallback layer)
+   RESPONSIVE UTILITY CLASSES 
    ========================================================= */
 
 .hide {
@@ -103,3 +127,4 @@
     display: block !important;
   }
 }
+
