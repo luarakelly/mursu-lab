@@ -8,6 +8,7 @@ import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 import { FlaskConical } from "lucide-react";
 
 import { HeaderControls } from "./HeaderControls";
+import { MobileMenu } from "./MobileMenu";
 
 type Props = {
   currentPath: string;
@@ -110,10 +111,19 @@ export function HeaderView({ currentPath }: Props) {
   );
 
   const right = (
-    <HeaderControls
+  <>
+    <div className="hide md:show">
+      <HeaderControls
+        githubUrl={GITHUB_URL}
+      />
+    </div>
+
+    <MobileMenu
+      navLinks={navLinks}
       githubUrl={GITHUB_URL}
     />
-  );
+  </>
+);
 
   return (
     <Header
