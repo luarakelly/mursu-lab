@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Box } from "../../primitives/layout/Box";
 
 export type FooterProps = React.ComponentPropsWithoutRef<"footer">;
 
@@ -10,8 +9,7 @@ export function Footer({
   ...props
 }: FooterProps) {
   return (
-    <Box
-      as="footer"
+    <footer
       {...props}
       className={className}
       style={{
@@ -21,6 +19,6 @@ export function Footer({
       }}
     >
       {children}
-    </Box>
+    </footer>
   );
 }
