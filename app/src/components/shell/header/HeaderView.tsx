@@ -57,14 +57,14 @@ export function HeaderView({ currentPath }: Props) {
           MURSU LAB
         </h1>
 
-        <h2
+        <p
           className="
             text-muted
             text-sm
           "
         >
           Engineering systems. Sharing the process.
-        </h2>
+        </p>
       </Stack>
     </Button>
   );
