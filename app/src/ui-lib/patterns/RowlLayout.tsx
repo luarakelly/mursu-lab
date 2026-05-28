@@ -7,13 +7,13 @@ import { Left } from "../slots/Left";
 import { Center } from "../slots/Center";
 import { Right } from "../slots/Right";
 
-export type RowlLayoutMode =
+export type RowLayoutMode =
   | "default"
   | "centered"
   | "split"
   | "stacked";
 
-export type RowlLayoutOverrides = {
+export type RowLayoutOverrides = {
   root?: React.CSSProperties;
 
   left?: React.CSSProperties;
@@ -21,20 +21,20 @@ export type RowlLayoutOverrides = {
   right?: React.CSSProperties;
 };
 
-export type RowlLayoutProps = {
+export type RowLayoutProps = {
   left?: React.ReactNode;
   center?: React.ReactNode;
   right?: React.ReactNode;
 
-  layout?: RowlLayoutMode;
+  layout?: RowLayoutMode;
 
-  overrides?: RowlLayoutOverrides;
+  overrides?: RowLayoutOverrides;
 
   className?: string;
   style?: React.CSSProperties;
 };
 
-export function RowlLayout({
+export function RowLayout({
   left,
   center,
   right,
@@ -45,7 +45,7 @@ export function RowlLayout({
 
   className,
   style,
-}: RowlLayoutProps) {
+}: RowLayoutProps) {
   const isStacked = layout === "stacked";
 
   return (
