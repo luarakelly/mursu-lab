@@ -1,19 +1,14 @@
 import { Footer } from "../../../ui-lib/compositions/footer/Footer";
+import { Center } from "../../../ui-lib/slots/Center";
 
 export function FooterView() {
   return (    
-<Footer
-  layoutClassName="
-    px-4
-    py-8
-    gap-4
-  "
-
-  center={
-    <span className="text-muted text-sm">
-      © 2026 Mursu Lab
-    </span>
-  }
-/>
+  <Footer>
+    <Center className="py-4">
+      <span className="text-muted text-sm">
+        © 2026 Mursu Lab
+      </span>
+    </Center>
+  </Footer>
   );
 }

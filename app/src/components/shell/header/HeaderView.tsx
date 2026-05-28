@@ -1,5 +1,6 @@
 // TODO: Review classname usage between the apps own CSS and the UI lib and the Talwind utilities.
 import { Header } from "../../../ui-lib/compositions/header/Header";
+import { RowLayout } from "../../../ui-lib/patterns/RowlLayout";
 import { Navigation } from "../../../ui-lib/patterns/Navigation";
 
 import { Button } from "../../../ui-lib/primitives/inputs/Button";
@@ -125,23 +126,13 @@ export function HeaderView({ currentPath }: Props) {
 );
 
   return (
-    <Header
-  sticky
-
-  left={left}
-  center={center}
-  right={right}
-
-  className="
-    font-mono
-    text-sm
-  "
-
-  layoutClassName="
-    gap-4
-    px-4
-    min-h-[72px]
-  "
-/>
-  );
+  <Header className="font-mono text-sm">
+    <RowLayout
+      className="gap-4 px-4 min-h-[72px]"
+      left={left}
+      center={center}
+      right={right}
+    />
+  </Header>
+);
 }
