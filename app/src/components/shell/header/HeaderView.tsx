@@ -2,7 +2,7 @@
 import { Header } from "../../../ui-lib/compositions/header/Header";
 import { Navigation } from "../../../ui-lib/patterns/Navigation";
 
-import { Link } from "../../../ui-lib/primitives/inputs/Link";
+import { Button } from "../../../ui-lib/primitives/inputs/Button";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 
 import { FlaskConical } from "lucide-react";
@@ -30,12 +30,10 @@ export function HeaderView({ currentPath }: Props) {
   }
 
   const left = (
-    <Stack
-      as={Link}
+    <Button
+      as="a"
       href="/"
       className="gap-2"
-      direction="row" 
-      align="center" 
     >
       <FlaskConical
         size={26}
@@ -48,7 +46,7 @@ export function HeaderView({ currentPath }: Props) {
       />
 
       <Stack className="leading-tight ">
-        <span
+        <h1
           className="
             text-sm
             
@@ -57,18 +55,18 @@ export function HeaderView({ currentPath }: Props) {
           "
         >
           MURSU LAB
-        </span>
+        </h1>
 
-        <span
+        <h2
           className="
             text-muted
             text-sm
           "
         >
           Engineering systems. Sharing the process.
-        </span>
+        </h2>
       </Stack>
-    </Stack>
+    </Button>
   );
 
   const center = (
@@ -78,8 +76,9 @@ export function HeaderView({ currentPath }: Props) {
       "
     >
       {navLinks.map(({ href, label }) => (
-        <Link
+        <Button
           key={href}
+          as="a"
           href={href}
           className={[
             `
@@ -105,7 +104,7 @@ export function HeaderView({ currentPath }: Props) {
           ].join(" ")}
         >
           {label}
-        </Link>
+        </Button>
       ))}
     </Navigation>
   );

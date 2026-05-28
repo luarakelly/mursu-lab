@@ -1,52 +1,51 @@
 import * as React from "react";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  as?: "button" | "a";
+type ButtonElement = "button" | "a";
 
-  fullWidth?: boolean;
+type BaseProps = {
+  as?: ButtonElement;
 
-  /**
-   * Escape hatch for system composition
-   */
-  style?: React.CSSProperties;
+  children?: React.ReactNode;
+
   className?: string;
-}
+  style?: React.CSSProperties;
+};
+
+type ButtonAsButton = BaseProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    as?: "button";
+  };
+
+type ButtonAsAnchor = BaseProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+    as: "a";
+  };
+
+export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 export function Button({
-  as,
-  fullWidth = false,
+  as = "button",
   className,
   style,
   children,
   ...props
 }: ButtonProps) {
-  const Component: any = as ?? "button";
+  const Component = as;
 
   return (
     <Component
-      {...props}
       className={className}
       style={{
         display: "inline-flex",
         alignItems: "center",
-        justifyContent: "center",
-
-        width: fullWidth ? "100%" : undefined,
 
         cursor: "pointer",
-        userSelect: "none",
 
         textDecoration: "none",
 
-        border: "none",
-        background: "transparent",
-
-        padding: 0,
-        margin: 0,
-
         ...style,
       }}
+      {...props}
     >
       {children}
     </Component>

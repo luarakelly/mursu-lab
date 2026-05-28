@@ -1,6 +1,6 @@
 import { Dropdown } from "../../../ui-lib/compositions/dropdown/Dropdown";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
-import { Link } from "../../../ui-lib/primitives/inputs/Link";
+import { Button } from "../../../ui-lib/primitives/inputs/Button";
 
 import { Menu } from "lucide-react";
 
@@ -41,8 +41,6 @@ export function MobileMenu({
     mt-2
     p-2
 
-    max-w-screen
-
     bg-[var(--background)]
   "
       content={
@@ -54,12 +52,13 @@ export function MobileMenu({
 
           <Stack className="gap-2">
             {navLinks.map((link) => (
-              <Link
+              <Button
                 key={link.href}
+                as="a"
                 href={link.href}
               >
                 {link.label}
-              </Link>
+              </Button>
             ))}
           </Stack>
         </Stack>
