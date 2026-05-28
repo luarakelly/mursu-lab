@@ -4,50 +4,78 @@ type ButtonElement = "button" | "a";
 
 type BaseProps = {
   as?: ButtonElement;
-
   children?: React.ReactNode;
-
   className?: string;
   style?: React.CSSProperties;
 };
 
 type ButtonAsButton = BaseProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    keyof BaseProps
+  > & {
     as?: "button";
   };
 
 type ButtonAsAnchor = BaseProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    keyof BaseProps
+  > & {
     as: "a";
   };
 
 export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
-export function Button({
-  as = "button",
-  className,
-  style,
-  children,
-  ...props
-}: ButtonProps) {
-  const Component = as;
+export function Button(props: ButtonProps) {
+  const {
+    className,
+    style,
+    children,
+  } = props;
+
+  const mergedStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+
+    cursor: "pointer",
+
+    textDecoration: "none",
+
+    ...style,
+  };
+
+  if (props.as === "a") {
+    const {
+      as,
+      ...anchorProps
+    } = props;
+
+    return (
+      <a
+        {...anchorProps}
+        className={className}
+        style={mergedStyle}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  const {
+    as,
+    type,
+    ...buttonProps
+  } = props;
 
   return (
-    <Component
+    <button
+      {...buttonProps}
+      type={type ?? "button"}
       className={className}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-
-        cursor: "pointer",
-
-        textDecoration: "none",
-
-        ...style,
-      }}
-      {...props}
+      style={mergedStyle}
     >
       {children}
-    </Component>
+    </button>
   );
 }
