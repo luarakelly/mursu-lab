@@ -3,9 +3,9 @@ import * as React from "react";
 
 import { Flex } from "../primitives/layout/Flex";
 
-import { Top } from "../slots/Top";
-import { Main } from "../slots/Main"; // TODO: rename from main to content
-import { Bottom } from "../slots/Bottom";
+import { ColumnTop } from "../slots/ColumnTop";
+import { ColumnCenter } from "../slots/ColumnCenter";
+import { ColumnBottom } from "../slots/ColumnBottom";
 
 export type ColumnMode =
   | "default"
@@ -69,7 +69,7 @@ export function ColumnLayout({
       }}
     >
       {/* TOP */}
-      <Top
+      <ColumnTop
         style={{
           flexShrink: 0,
 
@@ -77,10 +77,10 @@ export function ColumnLayout({
         }}
       >
         {top}
-      </Top>
+      </ColumnTop>
 
       {/* MAIN */}
-      <Main
+      <ColumnCenter
         style={{
           minWidth: 0,
           minHeight: 0,
@@ -96,10 +96,10 @@ export function ColumnLayout({
         }}
       >
         {main}
-      </Main>
+      </ColumnCenter>
 
       {/* BOTTOM */}
-      <Bottom
+      <ColumnBottom
         style={{
           flexShrink: 0,
 
@@ -107,7 +107,7 @@ export function ColumnLayout({
         }}
       >
         {bottom}
-      </Bottom>
+      </ColumnBottom>
     </Flex>
   );
 }

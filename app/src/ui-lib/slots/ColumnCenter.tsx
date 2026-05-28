@@ -1,14 +1,14 @@
 import * as React from "react";
 import { Stack } from "../primitives/layout/Stack";
 
-type MainProps = React.ComponentProps<typeof Stack>;
+type ColumnCenterProps = React.ComponentProps<typeof Stack>;
 
-export function Main({
+export function ColumnCenter({
   direction = "column",
   grow = 1,
   minWidth = 0,
   ...props
-}: MainProps) {
+}: ColumnCenterProps) {
   return (
     <Stack
       direction={direction}

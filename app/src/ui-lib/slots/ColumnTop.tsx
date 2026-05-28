@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Stack } from "../primitives/layout/Stack";
 
-type BottomProps = React.ComponentProps<typeof Stack>;
+type ColumnTopProps = React.ComponentProps<typeof Stack>;
 
-export function Bottom({
+export function ColumnTop({
   direction = "column",
   ...props
-}: BottomProps) {
+}: ColumnTopProps) {
   return (
     <Stack
       direction={direction}
