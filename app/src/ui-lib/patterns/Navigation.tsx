@@ -1,3 +1,6 @@
+// TODO: remove polimorphism fron this component, it should be only for nav.
+// TODO: add behaviour like active link, aria-current, etc. 
+// TODO: move to compositions
 import * as React from "react";
 
 import { Stack } from "../primitives/layout/Stack";

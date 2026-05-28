@@ -1,9 +1,10 @@
+//TODO: add polimophism "as" and "role"
 import * as React from "react";
 
 import { Flex } from "../primitives/layout/Flex";
 
 import { Top } from "../slots/Top";
-import { Main } from "../slots/Main";
+import { Main } from "../slots/Main"; // TODO: rename from main to content
 import { Bottom } from "../slots/Bottom";
 
 export type ColumnMode =

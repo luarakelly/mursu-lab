@@ -1,3 +1,4 @@
+//TODO: add polimophism "as" and "role"
 import * as React from "react";
 
 import { Flex } from "../primitives/layout/Flex";

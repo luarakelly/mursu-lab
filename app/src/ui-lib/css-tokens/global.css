@@ -1,5 +1,5 @@
 /* =========================================================
-   SHELL
+   SHELL - TODO: add CSS reset and mobile
    ========================================================= */
 * {
   box-sizing: border-box;
@@ -16,7 +16,10 @@ main {
   min-height: 0;
 }
 /* =========================================================
-   BREAKPOINT SYSTEM
+   BREAKPOINT SYSTEM - TODO: add global scales that can be used across the app, 
+   like is done for spacingn and typography, but now for transition and thickness.
+
+   TOTO: make sure application is useing the scales defined here.
    ========================================================= */
 
 :root {
