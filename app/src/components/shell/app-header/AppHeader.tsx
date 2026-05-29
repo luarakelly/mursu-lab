@@ -24,7 +24,7 @@ const navLinks = [
   { href: "/about", label: "About" },
 ];
 
-export function HeaderView({ currentPath }: Props) {
+export function AppHeader({ currentPath }: Props) {
   function isActive(href: string) {
     if (href === "/") return currentPath === "/";
     return currentPath.startsWith(href);
@@ -126,7 +126,7 @@ export function HeaderView({ currentPath }: Props) {
 );
 
   return (
-  <Header className="font-mono text-sm">
+  <Header className="font-mono text-sm border-b">
     <RowLayout
       className="gap-4 px-4 min-h-[72px]"
       left={left}
