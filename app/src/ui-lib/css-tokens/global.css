@@ -61,6 +61,43 @@ main {
   --leading-tight: 1.2;
   --leading-normal: 1.5;
   --leading-relaxed: 1.7;
+
+  /* scroll area */
+  --scrollbar-size: 8px;
+  --scrollbar-thumb: hsl(240 5% 40%);
+  --scrollbar-thumb-hover: hsl(240 5% 50%);
+  --scrollbar-track: transparent;
+  --scrollbar-radius: 999px;
+}
+
+/* scroll area */
+.scroll-area {
+  overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--scrollbar-thumb)
+    var(--scrollbar-track);
+}
+
+/* Chromium + Safari */
+.scroll-area::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--scrollbar-radius);
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* =========================================================
