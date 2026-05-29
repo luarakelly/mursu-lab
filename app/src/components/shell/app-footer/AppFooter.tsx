@@ -1,4 +1,4 @@
-import { Footer } from "../../../ui-lib/compositions/footer/Footer";
+import { Footer } from "../../../ui-lib/semantic-wrappers/Footer";
 import { Center } from "../../../ui-lib/slots/Center";
 
 export function AppFooter() {

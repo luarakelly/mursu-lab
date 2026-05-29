@@ -1,5 +1,5 @@
-import { Header } from "../../../ui-lib/compositions/header/Header";
-import { RowLayout } from "../../../ui-lib/patterns/RowlLayout";
+import { Header } from "../../../ui-lib/semantic-wrappers/Header";
+import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 
 export function PagesHeader({

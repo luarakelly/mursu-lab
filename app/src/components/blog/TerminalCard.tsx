@@ -3,7 +3,7 @@ import { FileText } from "lucide-react";
 import { TerminalCards } from "../shell/terminal-card/TerminalCards";
 
 import { Card } from "../../ui-lib/semantic-wrappers/Card";
-import { RowLayout } from "../../ui-lib/patterns/RowlLayout";
+import { RowLayout } from "../../ui-lib/patterns/static/RowlLayout";
 import { Stack } from "../../ui-lib/primitives/layout/Stack";
 
 export function TerminalCard() {

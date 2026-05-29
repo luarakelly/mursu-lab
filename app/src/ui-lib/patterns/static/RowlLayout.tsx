@@ -1,11 +1,11 @@
 //TODO: add polimophism "as" and "role"
 import * as React from "react";
 
-import { Flex } from "../primitives/layout/Flex";
+import { Flex } from "../../primitives/layout/Flex";
 
-import { Left } from "../slots/Left";
-import { Center } from "../slots/Center";
-import { Right } from "../slots/Right";
+import { Left } from "../../slots/Left";
+import { Center } from "../../slots/Center";
+import { Right } from "../../slots/Right";
 
 export type RowLayoutMode =
   | "default"

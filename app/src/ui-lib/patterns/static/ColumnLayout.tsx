@@ -1,11 +1,11 @@
 //TODO: add polimophism "as" and "role"
 import * as React from "react";
 
-import { Flex } from "../primitives/layout/Flex";
+import { Flex } from "../../primitives/layout/Flex";
 
-import { ColumnTop } from "../slots/ColumnTop";
-import { ColumnCenter } from "../slots/ColumnCenter";
-import { ColumnBottom } from "../slots/ColumnBottom";
+import { ColumnTop } from "../../slots/ColumnTop";
+import { ColumnCenter } from "../../slots/ColumnCenter";
+import { ColumnBottom } from "../../slots/ColumnBottom";
 
 export type ColumnMode =
   | "default"

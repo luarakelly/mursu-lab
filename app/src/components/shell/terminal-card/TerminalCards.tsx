@@ -1,6 +1,6 @@
 import { Card } from "../../../ui-lib/semantic-wrappers/Card";
-import { ColumnLayout } from "../../../ui-lib/patterns/ColumnLayout";
-import { RowLayout } from "../../../ui-lib/patterns/RowlLayout";
+import { ColumnLayout } from "../../../ui-lib/patterns/static/ColumnLayout";
+import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
 import { List } from "../../../ui-lib/semantic-wrappers/List";
 
 import { Ellipsis } from "lucide-react";

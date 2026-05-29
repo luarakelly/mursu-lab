@@ -1,7 +1,7 @@
 // TODO: Review classname usage between the apps own CSS and the UI lib and the Talwind utilities.
-import { Header } from "../../../ui-lib/compositions/header/Header";
-import { RowLayout } from "../../../ui-lib/patterns/RowlLayout";
-import { Navigation } from "../../../ui-lib/patterns/Navigation";
+import { Header } from "../../../ui-lib/semantic-wrappers/Header";
+import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
+import { Navigation } from "../../../ui-lib/semantic-wrappers/Navigation";
 
 import { Button } from "../../../ui-lib/primitives/inputs/Button";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";

@@ -1,4 +1,4 @@
-import { Dropdown } from "../../../ui-lib/compositions/dropdown/Dropdown";
+import { Dropdown } from "../../../ui-lib/patterns/interactive/Dropdown";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 import { Button } from "../../../ui-lib/primitives/inputs/Button";
 
