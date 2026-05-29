@@ -1,7 +1,7 @@
 import { Footer } from "../../../ui-lib/compositions/footer/Footer";
 import { Center } from "../../../ui-lib/slots/Center";
 
-export function FooterView() {
+export function AppFooter() {
   return (    
   <Footer>
     <Center className="py-4">
