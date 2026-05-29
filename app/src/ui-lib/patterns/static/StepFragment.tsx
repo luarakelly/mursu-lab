@@ -2,29 +2,25 @@ import * as React from "react";
 
 export type Direction = "row" | "column";
 
-export type TimelineFragmentProps = {
+export type StepFragmentProps = {
   direction: Direction;
-  isLast?: boolean;
-
-  /**
-   * Optional custom renderer (dot, svg, icon, etc.)
-   */
   icon?: React.ReactNode;
-
+  labelColumnWidth?: number; // width of the label in StepItem, default 16
   className?: string;
   style?: React.CSSProperties;
 };
 
-export function StepFragmentLayout({
+export function StepFragment({
   direction,
-  isLast = false,
   icon,
+  labelColumnWidth = 16,
   className,
   style,
-}: TimelineFragmentProps) {
-  if (isLast) return null;
-
+}: StepFragmentProps) {
   const isColumn = direction === "column";
+
+  // centers the connector line under the label icon
+  const offset = Math.round(labelColumnWidth / 2);
 
   return (
     <span
@@ -33,22 +29,18 @@ export function StepFragmentLayout({
       style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        color: "var(--muted)",
-
-        width: isColumn ? "1px" : "12px",
-        height: isColumn ? "12px" : "1px",
-
+        paddingLeft: isColumn ? `${offset}px` : undefined,
+        paddingTop: !isColumn ? `${offset}px` : undefined,
         ...style,
       }}
     >
       {icon ?? (
         <span
           style={{
-            width: isColumn ? "1px" : "12px",
-            height: isColumn ? "12px" : "1px",
+            display: "block",
+            width: isColumn ? "1px" : "24px",
+            height: isColumn ? "24px" : "2px",
             background: "currentColor",
-            opacity: 0.6,
           }}
         />
       )}
