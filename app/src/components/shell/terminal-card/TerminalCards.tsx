@@ -5,15 +5,15 @@ import { List } from "../../../ui-lib/semantic-wrappers/List";
 
 import { Ellipsis } from "lucide-react";
 
-type TerminalCardProps = {
+type TerminalCardsProps = {
   title: React.ReactNode;
   contentList?: React.ReactNode[];
 };
 
-export function TerminalCardBase({
+export function TerminalCards({
   title,
   contentList = [],
-}: TerminalCardProps) {
+}: TerminalCardsProps) {
   return (
     <Card className="rounded-xl border px-4 min-w-[20rem]">
       <ColumnLayout
