@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Pagination } from "../../../ui-lib/patterns/interactive/Pagination";
 
-export default function BlogPagination() {
+export default function AppPagination() {
   const [page, setPage] = React.useState(1);
 
   const totalPages = 12;
@@ -29,28 +29,6 @@ export default function BlogPagination() {
       nextLabel="→"
 
       className="w-full"
-
-      containerClassName="
-        justify-center
-        gap-4
-      "
-
-      buttonClassName="
-        px-3 py-1
-        rounded-md
-        border
-        text-sm
-        hover:bg-white/5
-      "
-
-      activeClassName="
-        font-bold
-        text-[var(--accent)]
-      "
-
-      disabledClassName="
-        opacity-40
-      "
     />
   );
 }

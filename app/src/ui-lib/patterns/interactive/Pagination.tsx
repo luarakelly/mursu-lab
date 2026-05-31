@@ -1,4 +1,9 @@
+// Should I use slots here?
+// Add hability to style the buttons
 import * as React from "react";
+
+import { Stack } from "../../primitives/layout/Stack";
+import { Button } from "../../primitives/inputs/Button";
 
 export type PaginationProps = {
   currentPage: number;
@@ -15,11 +20,6 @@ export type PaginationProps = {
 
   className?: string;
   style?: React.CSSProperties;
-
-  containerClassName?: string;
-  buttonClassName?: string;
-  activeClassName?: string;
-  disabledClassName?: string;
 };
 
 export function Pagination({
@@ -37,11 +37,6 @@ export function Pagination({
 
   className,
   style,
-
-  containerClassName,
-  buttonClassName,
-  activeClassName,
-  disabledClassName,
 }: PaginationProps) {
   return (
     <nav
@@ -49,72 +44,57 @@ export function Pagination({
       className={className}
       style={style}
     >
-      <div
-        className={containerClassName}
+      <Stack
+        direction="row"
+        align="center"
+        justify="center"
+        wrap="wrap"
+        gap="4"
         style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
+          width: "100%",
+          minWidth: 0,
         }}
       >
         {/* PREVIOUS */}
-        <button
-          type="button"
+        <Button
           onClick={onPrevious}
           disabled={!hasPrevious}
-          className={[
-            buttonClassName,
-            !hasPrevious ? disabledClassName : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
           style={{
-            opacity: !hasPrevious ? 0.5 : 1,
-            cursor: !hasPrevious
-              ? "not-allowed"
-              : "pointer",
+            opacity: hasPrevious ? 1 : 0.5,
+            cursor: hasPrevious
+              ? "pointer"
+              : "not-allowed",
           }}
         >
           {previousLabel}
-        </button>
+        </Button>
 
         {/* CURRENT */}
         <span
           aria-current="page"
-          className={[
-            buttonClassName,
-            activeClassName,
-          ]
-            .filter(Boolean)
-            .join(" ")}
           style={{
             fontWeight: 600,
+            padding: "0 var(--space-3)",
+            minWidth: 0,
           }}
         >
           {currentLabel ?? currentPage}
         </span>
 
         {/* NEXT */}
-        <button
-          type="button"
+        <Button
           onClick={onNext}
           disabled={!hasNext}
-          className={[
-            buttonClassName,
-            !hasNext ? disabledClassName : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
           style={{
-            opacity: !hasNext ? 0.5 : 1,
-            cursor: !hasNext
-              ? "not-allowed"
-              : "pointer",
+            opacity: hasNext ? 1 : 0.5,
+            cursor: hasNext
+              ? "pointer"
+              : "not-allowed",
           }}
         >
           {nextLabel}
-        </button>
-      </div>
+        </Button>
+      </Stack>
     </nav>
   );
 }
