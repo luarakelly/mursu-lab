@@ -8,36 +8,40 @@
   --scrollbar-track: transparent;
   --scrollbar-radius: 999px;
 
-  /*shadowns*/
+  /* shadows */
   --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+
   --shadow-sm:
     0 1px 3px rgb(0 0 0 / 0.1),
     0 1px 2px rgb(0 0 0 / 0.06);
+
   --shadow-md:
     0 4px 6px rgb(0 0 0 / 0.1),
     0 2px 4px rgb(0 0 0 / 0.06);
+
   --shadow-lg:
     0 10px 15px rgb(0 0 0 / 0.1),
     0 4px 6px rgb(0 0 0 / 0.05);
+
   --shadow-xl:
     0 20px 25px rgb(0 0 0 / 0.1),
     0 8px 10px rgb(0 0 0 / 0.04);
+
   --shadow-2xl:
     0 25px 50px rgb(0 0 0 / 0.25);
 }
 
 /* scroll area */
+
 .scroll-area {
   overflow: auto;
 
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color:
     var(--scrollbar-thumb)
     var(--scrollbar-track);
 }
 
-/* Chromium + Safari */
 .scroll-area::-webkit-scrollbar {
   width: var(--scrollbar-size);
   height: var(--scrollbar-size);
@@ -56,39 +60,96 @@
   background: var(--scrollbar-thumb-hover);
 }
 
-/* lines */
+/* steps */
+.step-connector {
+  display: block;
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.step-connector-vertical {
+  width: 1px;
+  flex: 1;
+  min-height: var(--space-4);
+}
+
+.step-connector-horizontal {
+  height: 1px;
+  flex: 1;
+  min-width: var(--space-4);
+}
+
+/* dotted/dashed horizontal variants */
+.line-dotted-horizontal {
+  height: 1px;
+  flex: 1;
+  background: none;
+  border-top: 1px dotted currentColor;
+  opacity: 0.4;
+}
+
+.line-dashed-horizontal {
+  height: 1px;
+  flex: 1;
+  background: none;
+  border-top: 1px dashed currentColor;
+  opacity: 0.4;
+}
+/* generic lines */
 
 .divider {
-  height: 1px;
   width: 100%;
-  background: var(--color-border, #e5e5e5);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
 }
 
 .line-vertical {
-  width: 2px;
+  width: 1px;
   height: 100%;
-  background: var(--color-border, #e5e5e5);
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.line-horizontal {
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  opacity: 0.2;
 }
 
 .line-dotted {
-  border-left: 2px dotted var(--color-border, #ccc);
-  height: 100%;
+  width: 1px;
+  flex: 1;
+  background: none;
+  border-left: 1px dotted currentColor;
+  opacity: 0.4;
 }
+
+.line-dashed {
+  width: 1px;
+  flex: 1;
+  background: none;
+  border-left: 1px dashed currentColor;
+  opacity: 0.4;
+}
+
+/* shadows */
+
+.shadow-none { box-shadow: none; }
+.shadow-xs { box-shadow: var(--shadow-xs); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-2xl { box-shadow: var(--shadow-2xl); }
+
+/* cursor */
+
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
 
 /*
 .ring-*
 .overlay-*
 */
-
-/* shadowns */
-.shadow-none {box-shadow: none;}
-.shadow-xs {box-shadow: var(--shadow-xs);}
-.shadow-sm {box-shadow: var(--shadow-sm);}
-.shadow-md {box-shadow: var(--shadow-md);}
-.shadow-lg {box-shadow: var(--shadow-lg);}
-.shadow-xl {box-shadow: var(--shadow-xl);}
-.shadow-2xl {box-shadow: var(--shadow-2xl);}
-
-/*cursor*/
-.cursor-pointer {cursor: pointer;}
-.cursor-default {cursor: default;}
