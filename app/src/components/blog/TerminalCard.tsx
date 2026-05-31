@@ -12,12 +12,12 @@ export function TerminalCard() {
       title={<Text>blog_status</Text>}
       contentList={[
         // INTRO BLOCK
-        <Stack key="intro" minWidth="24rem">
+        <Stack key="intro" minWidth="3">
           <Text>&gt; Writing in public</Text>
           <Text>&gt; Documenting the process</Text>
           <Text>&gt; Sharing learnings and failures</Text>
         </Stack>,
-        <Stack key="summary" minWidth="24rem" className="pt-4">
+        <Stack key="summary" minWidth="3" className="pt-4">
           <Text>Summary:</Text>
 
         <Card key="stats-1">

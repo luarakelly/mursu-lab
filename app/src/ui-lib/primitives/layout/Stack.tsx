@@ -1,27 +1,31 @@
 import * as React from "react";
-import { Flex } from "./Flex";
+import { Flex, FlexProps } from "./Flex";
 
-type StackProps = Omit<
-  React.ComponentProps<typeof Flex>,
-  "direction"
-> & {
+type StackProps = Omit<FlexProps, "direction"> & {
   direction?: "row" | "column";
-  gap?: React.CSSProperties["gap"];
 };
 
 export function Stack({
   direction = "column",
+  gap = "3",
   align,
   justify,
-  wrap,
+  wrap = "wrap",
+  grow,
+  shrink,
+  minWidth = "0",
   ...props
 }: StackProps) {
   return (
     <Flex
       direction={direction}
+      gap={gap}
       align={align}
       justify={justify}
       wrap={wrap}
+      grow={grow}
+      shrink={shrink}
+      minWidth={minWidth}
       {...props}
     />
   );
