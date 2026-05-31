@@ -4,7 +4,7 @@ import { space, minWidth as resolveMinWidth } from "../../utils/cssTokensResolve
 
 type ElementType = React.ElementType;
 
-export type FlexProps<C extends ElementType = "div"> = {
+export type FlexOwnProps<C extends ElementType = "div"> = {
   as?: C;
   direction?: React.CSSProperties["flexDirection"];
   align?: React.CSSProperties["alignItems"];
@@ -27,6 +27,11 @@ export type FlexProps<C extends ElementType = "div"> = {
   style?: React.CSSProperties;
   children?: React.ReactNode;
 };
+
+// merges own props + HTML attrs of the element (including ref)
+export type FlexProps<C extends ElementType = "div"> =
+  FlexOwnProps<C> &
+  Omit<React.ComponentPropsWithRef<C>, keyof FlexOwnProps<C>>;
 
 export function Flex<C extends ElementType = "div">({
   as,
@@ -52,7 +57,7 @@ export function Flex<C extends ElementType = "div">({
   children,
   ...rest
 }: FlexProps<C>) {
-  const Component = as || "div";
+  const Component = (as ?? "div") as ElementType;
 
   return (
     <Component
