@@ -21,6 +21,7 @@ export function Stack({
   shrink,
   minWidth = "0",
   as,
+  className,
   ...props
 }: StackProps) {
   return (
@@ -34,6 +35,7 @@ export function Stack({
       grow={grow}
       shrink={shrink}
       minWidth={minWidth}
+      className={className}
       {...props}
     />
   );
