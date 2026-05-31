@@ -1,8 +1,14 @@
 import * as React from "react";
-import { Flex, FlexProps } from "./Flex";
 
-type StackProps = Omit<FlexProps, "direction"> & {
+import { Flex } from "./Flex";
+import { SpaceToken } from "../../types/cssTokens";
+
+type StackProps = Omit<
+  React.ComponentProps<typeof Flex>,
+  "direction"
+> & {
   direction?: "row" | "column";
+  gap?: SpaceToken;
 };
 
 export function Stack({
@@ -14,10 +20,12 @@ export function Stack({
   grow,
   shrink,
   minWidth = "0",
+  as,
   ...props
 }: StackProps) {
   return (
     <Flex
+      as={as}
       direction={direction}
       gap={gap}
       align={align}
