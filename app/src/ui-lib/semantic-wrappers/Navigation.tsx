@@ -1,68 +1,40 @@
-// TODO: remove polimorphism fron this component, it should be only for nav.
-// TODO: add behaviour like active link, aria-current, etc. 
-// TODO: move to compositions
+// TODO: add behaviour like active link in the patterns/interactive and reuse it here, aria-current, etc. 
+
 import * as React from "react";
 
 import { Stack } from "../primitives/layout/Stack";
+import { Scale } from "../types/cssTokens";
 
-type ElementType = React.ElementType;
-
-export type NavigationProps<C extends ElementType = "nav"> = {
-  as?: C;
-
+export type NavigationProps = {
   direction?: "row" | "column";
 
-  gap?: React.CSSProperties["gap"];
-
-  align?: React.CSSProperties["alignItems"];
-
-  justify?: React.CSSProperties["justifyContent"];
-
-  wrap?: React.CSSProperties["flexWrap"];
+  gap?: Scale;
 
   children?: React.ReactNode;
 
   className?: string;
   style?: React.CSSProperties;
-} & Omit<React.ComponentPropsWithoutRef<C>, "as">;
+};
 
-export function Navigation<C extends ElementType = "nav">({
-  as,
-
+export function Navigation({
   direction = "row",
 
-  gap = "var(--space-4)",
-
-  align = "center",
-
-  justify,
-
-  wrap,
+  gap = "4",
 
   className,
   style,
 
   children,
-
-  ...rest
-}: NavigationProps<C>) {
-  const Component = as || "nav";
-
+}: NavigationProps) {
   return (
-    <Stack
-      as={Component}
+     <Stack
+      as="nav"
       direction={direction}
-      align={align}
-      justify={justify}
-      wrap={wrap}
       gap={gap}
+      wrap="wrap"
+      align="center"
       className={className}
-      style={{
-        minWidth: 0,
-
-        ...style,
-      }}
-      {...rest}
+      style={{...style,}}
     >
       {children}
     </Stack>

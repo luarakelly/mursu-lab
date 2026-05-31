@@ -1,10 +1,9 @@
-// TODO: Review classname usage between the apps own CSS and the UI lib and the Talwind utilities.
 import { Header } from "../../../ui-lib/semantic-wrappers/Header";
-import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
 import { Navigation } from "../../../ui-lib/semantic-wrappers/Navigation";
 
-import { Button } from "../../../ui-lib/primitives/inputs/Button";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
+import { Button } from "../../../ui-lib/primitives/inputs/Button";
+import { Text } from "../../../ui-lib/primitives/typography/Text";
 
 import { FlaskConical } from "lucide-react";
 
@@ -30,109 +29,75 @@ export function AppHeader({ currentPath }: Props) {
     return currentPath.startsWith(href);
   }
 
-  const left = (
-    <Button
-      as="a"
-      href="/"
-      className="gap-2"
-    >
-      <FlaskConical
-        size={26}
-        strokeWidth={1.75}
-        className="
-          text-[var(--accent)]
-          shrink-0
-        "
-        aria-hidden="true"
-      />
-
-      <Stack className="leading-tight ">
-        <h1
-          className="
-            text-sm
-            
-            font-semibold
-            tracking-tight
-          "
-        >
-          MURSU LAB
-        </h1>
-
-        <p
-          className="
-            text-muted
-            text-sm
-          "
-        >
-          Engineering systems. Sharing the process.
-        </p>
-      </Stack>
-    </Button>
-  );
-
-  const center = (
-    <Navigation
-      className="
-        hide md:show
-      "
-    >
-      {navLinks.map(({ href, label }) => (
-        <Button
-          key={href}
-          as="a"
-          href={href}
-          className={[
-            `
-            text-sm
-            font-mono
-
-            relative
-            px-4
-            py-6
-
-            transition-colors
-            `,
-            isActive(href) &&
-              `
-              after:absolute
-              after:bottom-0
-              after:left-2
-              after:right-2
-              after:h-[2px]
-              after:bg-[var(--accent)]
-              after:rounded-t
-              `,
-          ].join(" ")}
-        >
-          {label}
-        </Button>
-      ))}
-    </Navigation>
-  );
-
-  const right = (
-  <>
-    <div className="hide md:show">
-      <HeaderControls
-        githubUrl={GITHUB_URL}
-      />
-    </div>
-
-    <MobileMenu
-      navLinks={navLinks}
-      githubUrl={GITHUB_URL}
-    />
-  </>
-);
-
   return (
-  <Header className="font-mono text-sm border-b">
-    <RowLayout
-      className="gap-4 px-4 min-h-[72px]"
-      left={left}
-      center={center}
-      right={right}
-    />
-  </Header>
-);
+    <Header className="font-mono text-sm border-b">
+      
+      {/* MAIN HEADER ROW */}
+      <Stack
+        direction="row"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        className="p-3 gap-4"
+      >
+        {/* LEFT / BRAND */}
+        <Button as="a" href="/" className="gap-3">
+          <FlaskConical
+            size={26}
+            strokeWidth={1.75}
+            aria-hidden="true"
+          />
+
+          <Stack gap="0">
+            <Text as="h1" className="text-sm font-semibold">
+              MURSU LAB
+            </Text>
+
+            <Text as="p" className="text-xs text-muted">
+              Building in public
+            </Text>
+          </Stack>
+        </Button>
+
+        {/* CENTER / NAV */}
+        <Navigation className="hide md:show-flex">
+          {navLinks.map(({ href, label }) => (
+            <Button
+              key={href}
+              as="a"
+              href={href}
+              aria-current={isActive(href) ? "page" : undefined}
+              className="
+                hide md:show-flex
+                text-sm
+                px-3
+                py-2
+                font-mono
+              "
+            >
+              {label}
+            </Button>
+          ))}
+        </Navigation>
+
+        {/* RIGHT / ACTIONS */}
+        <Stack
+          direction="row"
+          align="center"
+          className="gap-2 shrink-0"
+        >
+          {/* desktop controls */}
+          <div className="hide md:show-flex">
+            <HeaderControls githubUrl={GITHUB_URL} />
+          </div>
+
+          {/* mobile menu */}
+          <MobileMenu
+            navLinks={navLinks}
+            githubUrl={GITHUB_URL}
+          />
+        </Stack>
+      </Stack>
+    </Header>
+  );
 }

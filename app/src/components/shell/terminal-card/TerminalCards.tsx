@@ -1,7 +1,7 @@
 import { Card } from "../../../ui-lib/semantic-wrappers/Card";
-import { ColumnLayout } from "../../../ui-lib/patterns/static/ColumnLayout";
-import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
 import { List } from "../../../ui-lib/semantic-wrappers/List";
+import { Text } from "../../../ui-lib/primitives/typography/Text";
+import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 
 import { Ellipsis } from "lucide-react";
 
@@ -15,30 +15,42 @@ export function TerminalCards({
   contentList = [],
 }: TerminalCardsProps) {
   return (
-    <Card className="rounded-xl border px-4 min-w-[20rem]">
-      <ColumnLayout
-        top={
-          <RowLayout
-            className="min-h-[4rem] border-b"
-            left={<span>mursu@lab:~$ {title}</span>}
-            right={<Ellipsis className="h-8 w-8" />}
-          />
-        }
-        main={
-          <List>
-            {contentList.map((item, index) => (
-              <li key={index}>
-                {item}
-              </li>
-            ))}
-          </List>
-        }
-        bottom={
-          <span className="py-2 border-t">
-            &gt; _
-          </span>
-        }
-      />
+    <Card className="rounded-md border">
+      
+      {/* TOP BAR */}
+      <Stack
+        direction="row"
+        align="center"
+        justify="space-between"
+        className="border-b px-3 py-2"
+      >
+        <Text>
+          mursu@lab:~$ {title}
+        </Text>
+
+        <Ellipsis size={16} />
+      </Stack>
+
+      {/* MAIN CONTENT */}
+      <Stack className="p-3">
+        <List>
+          {contentList.map((item, index) => (
+            <li key={index}>
+              {item}
+            </li>
+          ))}
+        </List>
+      </Stack>
+
+      {/* FOOTER / PROMPT */}
+      <Stack
+        className="border-t px-3 py-2"
+      >
+        <Text>
+          &gt; _
+        </Text>
+      </Stack>
+
     </Card>
   );
 }

@@ -18,19 +18,14 @@ export function ThemeToggle() {
       | null;
 
     const initial = stored ?? "dark";
-
     setTheme(initial);
-
     document.documentElement.dataset.theme = initial;
   }, []);
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
-
     setTheme(next);
-
     localStorage.setItem("theme", next);
-
     document.documentElement.dataset.theme = next;
   }
 
@@ -39,11 +34,9 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle theme"
       className="
+        hide md:show-block
         rounded-md
-        text-[var(--foreground-muted)]
-        hover:text-[var(--foreground)]
-        hover:bg-[var(--surface-hover)]
-        transition-colors
+        text-muted
       "
     >
       {theme === "dark" ? (
@@ -69,19 +62,14 @@ export function LangToggle() {
       | null;
 
     const initial = stored ?? "en";
-
     setLang(initial);
-
     document.documentElement.lang = initial;
   }, []);
 
   function toggle() {
     const next = lang === "en" ? "fi" : "en";
-
     setLang(next);
-
     localStorage.setItem("lang", next);
-
     document.documentElement.lang = next;
   }
 
@@ -90,16 +78,12 @@ export function LangToggle() {
       onClick={toggle}
       aria-label="Toggle language"
       className="
-        text-xs font-mono 
-        
-        rounded-md
-        border
-        font-semibold tracking-widest
-        text-[var(--foreground-muted)]
-        hover:text-[var(--foreground)]
-        hover:border-[var(--foreground-muted)]
-        hover:bg-[var(--surface-hover)]
-        transition-colors
+        hide md:show-flex
+        text-xs  
+        font-semibold 
+
+        font-mono
+        text-muted
       "
     >
       {lang === "en" ? "🇬🇧 EN" : "🇫🇮 FI"}
@@ -110,7 +94,6 @@ export function LangToggle() {
 //
 // GITHUB LINK
 //
-
 export function GithubLink({
   href,
 }: {
@@ -122,14 +105,11 @@ export function GithubLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="
-        hide lg:show
-        
+      className="    
+        hide lg:show-flex   
         rounded-md
-        text-[var(--foreground-muted)]
-        hover:text-[var(--foreground)]
-        hover:bg-[var(--surface-hover)]
-        transition-colors
+
+        text-muted
       "
       aria-label="GitHub"
     >
@@ -159,7 +139,6 @@ export function HeaderControls({
     <Stack
       direction="row"
       align="center"
-      className="shrink-0 gap-2"
     >
       <LangToggle />
 
@@ -171,12 +150,10 @@ export function HeaderControls({
         as="a"
         href="/contact"
         className="
-          hide lg:show
-
-          px-4 py-2
+          hide lg:show-flex
+          px-4
           rounded-md
           border
-          hover:bg-[var(--accent)]
         "
       >
         Get in touch
@@ -184,40 +161,3 @@ export function HeaderControls({
     </Stack>
   );
 }
-
-/**
- * {/* Mobile hamburger — visible only on mobile via CSS *}
-      <button
-        onClick={() => setMobileOpen((o) => !o)}
-        className="mobile-menu-btn"
-        aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        aria-expanded={mobileOpen}
-        aria-controls="mobile-menu"
-      >
-        {mobileOpen ? (
-          <X size={20} strokeWidth={2} aria-hidden="true" />
-        ) : (
-          <Menu size={20} strokeWidth={2} aria-hidden="true" />
-        )}
-      </button>
-
-      {/* Mobile drawer *}
-      {mobileOpen && (
-        <div id="mobile-menu" className="mobile-menu">
-          {navLinks.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className={`mobile-nav-link${isActive(href) ? " mobile-nav-link--active" : ""}`}
-              aria-current={isActive(href) ? "page" : undefined}
-            >
-              {label}
-            </a>
-          ))}
-          {/* Lang toggle in mobile drawer too *}
-          <div className="mobile-lang">
-            <LangToggle />
-          </div>
-        </div>
-      )}
- */

@@ -1,18 +1,20 @@
 import { TerminalCard } from "./TerminalCard";
 import { PagesHeader } from "../shell/page-header/PagesHeader"; 
+import { Text } from "../../ui-lib/primitives/typography/Text";
+
 
 export function PageHeader() {
     return (
   <PagesHeader
-    title={ <h1 className="text-2xl">/blog</h1> }
+    title={ <Text as="h1" className="text-2xl">/blog</Text> }
     subtitle={
-      <span className="text-4xl">
+      <Text className="text-4xl">
         Engineering notes <br /> from the lab
-      </span>
+      </Text>
     }
-    description={<span className="max-w-[25rem]">
+    description={<Text className="max-w-xs">
       Thoughts on building systems, full-stack architecture, tools and everything I am learning along the way.
-    </span>}
+    </Text>}
     media={<TerminalCard />}
   />
 );

@@ -4,6 +4,7 @@ import { Button } from "../../../ui-lib/primitives/inputs/Button";
 
 import { Menu } from "lucide-react";
 
+import { Navigation } from "../../../ui-lib/semantic-wrappers/Navigation";
 import { HeaderControls } from "./HeaderControls";
 
 type Props = {
@@ -21,36 +22,22 @@ export function MobileMenu({
 }: Props) {
   return (
     <Dropdown
-  align="right"
+      align="right"
+      className="md:hide"
 
-  className="md:hide"
+      trigger={
+        <Button className="md:hide" aria-label="Open menu">
+          <Menu size={18} />
+        </Button>
+      }
 
-  trigger={
-    <button
-      className="
-        p-2
-        rounded-md
-        border
-      "
-    >
-      <Menu size={18} />
-    </button>
-  }
-
-  contentClassName="
-    mt-2
-    p-2
-
-    bg-[var(--background)]
-  "
       content={
-        <Stack
-        >
+        <Stack>
           <HeaderControls 
             githubUrl={githubUrl}
           />
 
-          <Stack className="gap-2">
+          <Navigation direction="column">
             {navLinks.map((link) => (
               <Button
                 key={link.href}
@@ -60,7 +47,7 @@ export function MobileMenu({
                 {link.label}
               </Button>
             ))}
-          </Stack>
+          </Navigation>
         </Stack>
       }
     />

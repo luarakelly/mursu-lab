@@ -1,5 +1,4 @@
 import { Header } from "../../../ui-lib/semantic-wrappers/Header";
-import { RowLayout } from "../../../ui-lib/patterns/static/RowlLayout";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 
 export function PagesHeader({
@@ -10,15 +9,21 @@ export function PagesHeader({
 }: { title?: React.ReactNode; subtitle?: React.ReactNode; description?: React.ReactNode; media?: React.ReactNode }) {
     return (
         <Header className="border-b">
-            <RowLayout className="pl-30 py-16"
-                left=
-                {<Stack>
+            <Stack gap="7" 
+                direction="row" 
+                align="center" 
+                justify="space-evenly" 
+                className="px-4 py-7" 
+            >
+                <Stack gap="2">
                     {title}
                     {subtitle}
-                    {description ? description : null}
-                </Stack>}
-                center={media}
-            />
+                    {description}
+                </Stack>
+
+                {media}
+            </Stack>
         </Header>
     );
 }
+ 
