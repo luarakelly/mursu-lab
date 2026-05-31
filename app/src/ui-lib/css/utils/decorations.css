@@ -1,0 +1,94 @@
+/* decorations.css */
+
+:root {
+  /* scroll area */
+  --scrollbar-size: 8px;
+  --scrollbar-thumb: hsl(240 5% 40%);
+  --scrollbar-thumb-hover: hsl(240 5% 50%);
+  --scrollbar-track: transparent;
+  --scrollbar-radius: 999px;
+
+  /*shadowns*/
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-sm:
+    0 1px 3px rgb(0 0 0 / 0.1),
+    0 1px 2px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 4px 6px rgb(0 0 0 / 0.1),
+    0 2px 4px rgb(0 0 0 / 0.06);
+  --shadow-lg:
+    0 10px 15px rgb(0 0 0 / 0.1),
+    0 4px 6px rgb(0 0 0 / 0.05);
+  --shadow-xl:
+    0 20px 25px rgb(0 0 0 / 0.1),
+    0 8px 10px rgb(0 0 0 / 0.04);
+  --shadow-2xl:
+    0 25px 50px rgb(0 0 0 / 0.25);
+}
+
+/* scroll area */
+.scroll-area {
+  overflow: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color:
+    var(--scrollbar-thumb)
+    var(--scrollbar-track);
+}
+
+/* Chromium + Safari */
+.scroll-area::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--scrollbar-radius);
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* lines */
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: var(--color-border, #e5e5e5);
+}
+
+.line-vertical {
+  width: 2px;
+  height: 100%;
+  background: var(--color-border, #e5e5e5);
+}
+
+.line-dotted {
+  border-left: 2px dotted var(--color-border, #ccc);
+  height: 100%;
+}
+
+/*
+.ring-*
+.overlay-*
+*/
+
+/* shadowns */
+.shadow-none {box-shadow: none;}
+.shadow-xs {box-shadow: var(--shadow-xs);}
+.shadow-sm {box-shadow: var(--shadow-sm);}
+.shadow-md {box-shadow: var(--shadow-md);}
+.shadow-lg {box-shadow: var(--shadow-lg);}
+.shadow-xl {box-shadow: var(--shadow-xl);}
+.shadow-2xl {box-shadow: var(--shadow-2xl);}
+
+/*cursor*/
+.cursor-pointer {cursor: pointer;}
+.cursor-default {cursor: default;}

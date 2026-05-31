@@ -1,5 +1,5 @@
 ---
-import "../ui-lib/css-tokens/global.css";
+import "../ui-lib/css/index.css";
 import "../styles/global.css";
 
 import AppHeader from "../components/shell/app-header/AppHeader.astro";
@@ -9,7 +9,7 @@ import AppFooter from "../components/shell/app-footer/AppFooter.astro";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
@@ -17,10 +17,10 @@ import AppFooter from "../components/shell/app-footer/AppFooter.astro";
     <title>Mursu Lab</title>
   </head>
 
-  <body >
+  <body class="app-shell">
     <AppHeader />
 
-    <main>
+    <main class="page-shell">
       <slot />
     </main>
 
