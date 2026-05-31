@@ -28,7 +28,6 @@ export type FlexOwnProps<C extends ElementType = "div"> = {
   children?: React.ReactNode;
 };
 
-// merges own props + HTML attrs of the element (including ref)
 export type FlexProps<C extends ElementType = "div"> =
   FlexOwnProps<C> &
   Omit<React.ComponentPropsWithRef<C>, keyof FlexOwnProps<C>>;
