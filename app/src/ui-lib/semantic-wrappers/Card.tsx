@@ -14,6 +14,7 @@ export function Card({
       {...props}
       className={className}
       style={{
+        minWidth: 0,
         overflow: "hidden",
         boxSizing: "border-box",
         ...style,

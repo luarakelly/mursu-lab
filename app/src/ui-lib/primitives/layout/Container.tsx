@@ -1,33 +1,55 @@
 import * as React from "react";
 
-type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
-  size?: "sm" | "md" | "lg" | "xl" | "full";
-};
+import { Scale } from "../../types/cssTokens";
+import { space } from "../../utils/cssTokensResolver";
 
-const sizes = {
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1200px",
-  full: "100%",
-};
+type ContainerSize =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl";
+
+export type ContainerProps =
+  React.ComponentPropsWithoutRef<"div"> & {
+    size?: ContainerSize;
+
+    paddingX?: Scale;
+  };
 
 export function Container({
-  size = "xl",
+  size = "lg",
+
+  paddingX = "4",
+
+  className,
   style,
+
+  children,
+
   ...props
 }: ContainerProps) {
   return (
     <div
       {...props}
+      className={className}
       style={{
         width: "100%",
-        maxWidth: sizes[size],
+
+        maxWidth: `var(--container-${size})`,
+
         marginInline: "auto",
-        paddingInline: 16,
+
+        paddingInline: space(paddingX),
+
+        minWidth: 0,
+
         boxSizing: "border-box",
+
         ...style,
       }}
-    />
+    >
+      {children}
+    </div>
   );
 }

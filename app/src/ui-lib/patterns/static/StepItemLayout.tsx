@@ -1,42 +1,57 @@
 import * as React from "react";
+
 import { Stack } from "../../primitives/layout/Stack";
 
-export type StepItemLayoutProps = {
+export type StepItemProps = {
   label?: React.ReactNode;
-  connectorIcon?: React.ReactNode;
-  connectorClassName?: string;
-  children: React.ReactNode;
+
+  connector?: React.ReactNode;
+
   isLast?: boolean;
-  direction?: "column" | "row";
+
+  direction?: "row" | "column";
+
+  children: React.ReactNode;
+
   className?: string;
+
   style?: React.CSSProperties;
 };
 
 export function StepItem({
   label,
-  children,
+  connector,
   isLast = false,
+
   direction = "column",
-  connectorIcon,
-  connectorClassName,
+
+  children,
+
   className,
   style,
-}: StepItemLayoutProps) {
+}: StepItemProps) {
   if (direction === "row") {
     return (
       <Stack
         direction="column"
         align="center"
         className={className}
-        style={{ minWidth: 0, ...style }}
+        style={{
+          minWidth: 0,
+          ...style,
+        }}
       >
-        <span
-          aria-hidden="true"
-          style={{ display: "flex", alignItems: "center" }}
-        >
+        <span aria-hidden="true">
           {label}
         </span>
-        <div style={{ marginTop: "8px", textAlign: "center", minWidth: 0 }}>
+
+        <div
+          style={{
+            marginTop: "var(--space-2)",
+            textAlign: "center",
+            minWidth: 0,
+          }}
+        >
           {children}
         </div>
       </Stack>
@@ -49,33 +64,36 @@ export function StepItem({
       direction="row"
       align="flex-start"
       className={className}
-      style={{ gap: "12px", minWidth: 0, ...style }}
+      style={{
+        minWidth: 0,
+        ...style,
+      }}
     >
       {label && (
         <Stack
           direction="column"
           align="center"
-          style={{ flexShrink: 0, alignSelf: "stretch" }}
+          style={{
+            flexShrink: 0,
+            alignSelf: "stretch",
+          }}
         >
-          <span
-            aria-hidden="true"
-            style={{ display: "flex", alignItems: "center" }}
-          >
+          <span aria-hidden="true">
             {label}
           </span>
+
           {!isLast && (
             <span
               aria-hidden="true"
-              className={connectorClassName}
               style={{
                 flex: 1,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: "4px",
+                marginTop: "var(--space-1)",
               }}
             >
-              {connectorIcon ?? (
+              {connector ?? (
                 <span
                   style={{
                     width: "1px",
@@ -89,7 +107,16 @@ export function StepItem({
           )}
         </Stack>
       )}
-      <div style={{ minWidth: 0, flex: 1, paddingBottom: isLast ? 0 : "16px" }}>
+
+      <div
+        style={{
+          minWidth: 0,
+          flex: 1,
+          paddingBottom: isLast
+            ? 0
+            : "var(--space-4)",
+        }}
+      >
         {children}
       </div>
     </Stack>

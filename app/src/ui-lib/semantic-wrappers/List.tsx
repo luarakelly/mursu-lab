@@ -1,16 +1,42 @@
+import * as React from "react";
+
+import { Stack } from "../primitives/layout/Stack";
+import { Scale } from "../types/cssTokens";
+
+export type ListProps =
+  React.ComponentPropsWithoutRef<"ul"> & {
+    gap?: Scale;
+  };
+
 export function List({
-  children,
+  gap = "4",
+
   className,
   style,
+
+  children,
+
   ...props
-}: React.ComponentPropsWithoutRef<"ul">) {
+}: ListProps) {
   return (
-    <ul
-      {...props}
+    <Stack
+      as="ul"
+      direction="column"
+      gap={gap}
       className={className}
-      style={style}
+      style={{
+        width: "100%",
+
+        padding: 0,
+        margin: 0,
+
+        listStyle: "none",
+
+        ...style,
+      }}
+      {...props}
     >
       {children}
-    </ul>
+    </Stack>
   );
 }

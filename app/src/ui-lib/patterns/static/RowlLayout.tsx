@@ -1,5 +1,9 @@
-//TODO: add polimophism "as" and "role"
+//TODO: add "role" - toolbar | or some other side content, not necessatly controls
+// Should I use layout prop as optional for cases like app header and use depault automatic for page header for example.
+
 import * as React from "react";
+import { Scale } from "../../types/cssTokens";
+import { space } from "../../utils/cssTokensResolver";
 
 import { Flex } from "../../primitives/layout/Flex";
 
@@ -7,28 +11,17 @@ import { Left } from "../../slots/Left";
 import { Center } from "../../slots/Center";
 import { Right } from "../../slots/Right";
 
-export type RowLayoutMode =
-  | "default"
-  | "centered"
-  | "split"
-  | "stacked";
-
-export type RowLayoutOverrides = {
-  root?: React.CSSProperties;
-
-  left?: React.CSSProperties;
-  center?: React.CSSProperties;
-  right?: React.CSSProperties;
-};
-
 export type RowLayoutProps = {
   left?: React.ReactNode;
   center?: React.ReactNode;
   right?: React.ReactNode;
 
-  layout?: RowLayoutMode;
+  gap?: Scale;
+  wrap?: React.CSSProperties["flexWrap"];
 
-  overrides?: RowLayoutOverrides;
+  centerMinWidth: React.CSSProperties["minWidth"];
+  leftMinWidth: React.CSSProperties["minWidth"];
+  rightMinWidth: React.CSSProperties["minWidth"];
 
   className?: string;
   style?: React.CSSProperties;
@@ -39,40 +32,34 @@ export function RowLayout({
   center,
   right,
 
-  layout = "default",
-
-  overrides,
+  gap,
+  wrap,
+  centerMinWidth,
+  leftMinWidth,
+  rightMinWidth,
 
   className,
   style,
 }: RowLayoutProps) {
-  const isStacked = layout === "stacked";
-
   return (
     <Flex
-      direction={isStacked ? "column" : "row"}
-      align={isStacked ? "stretch" : "center"}
+      direction="row"
+      wrap={wrap? wrap : "wrap"}
+      align="center"
       justify="space-between"
-      wrap="nowrap"
       className={className}
       style={{
         width: "100%",
         minWidth: 0,
         boxSizing: "border-box",
-
-        ...overrides?.root,
+        gap: gap? space(gap) : "var(--space-4)",
         ...style,
       }}
     >
       <Left
         style={{
-          minWidth: 0,
-
-          ...(isStacked && {
-            width: "100%",
-          }),
-
-          ...overrides?.left,
+          minWidth: leftMinWidth? leftMinWidth : 0, // key collapse trigger
+          flexShrink: 1,
         }}
       >
         {left}
@@ -80,24 +67,8 @@ export function RowLayout({
 
       <Center
         style={{
-          minWidth: 0,
-
-          flex:
-            layout === "centered" ||
-            layout === "split"
-              ? 1
-              : undefined,
-
-          justifyContent:
-            layout === "split"
-              ? "space-between"
-              : "center",
-
-          ...(isStacked && {
-            width: "100%",
-          }),
-
-          ...overrides?.center,
+          flex: 1,
+          minWidth: centerMinWidth? centerMinWidth : "4rem", // key collapse trigger
         }}
       >
         {center}
@@ -105,13 +76,8 @@ export function RowLayout({
 
       <Right
         style={{
-          minWidth: 0,
-
-          ...(isStacked && {
-            width: "100%",
-          }),
-
-          ...overrides?.right,
+          flexShrink: 0,
+          minWidth: rightMinWidth? rightMinWidth : 0, // key collapse trigger
         }}
       >
         {right}
