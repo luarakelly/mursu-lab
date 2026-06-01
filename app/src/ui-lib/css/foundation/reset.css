@@ -1,0 +1,377 @@
+/* =========================================================
+   UI-LIB RESET
+   
+   Opinionated but safe. Removes browser inconsistencies
+   without imposing visual decisions — those belong in the
+   app layer (colors, fonts...).
+
+   Based on: Andy Bell's Modern Reset + Tailwind Preflight
+   + additional fixes for ui-lib polymorphic components.
+========================================================= */
+
+
+/* ─── Box sizing ─────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* ─── Spacing ────────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ─── Document ───────────────────────────────────────── */
+
+html {
+  /* prevent font size inflation on mobile */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+
+  /* smoother font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* consistent line height base */
+  line-height: 1.5;
+
+  /* tab size for code blocks */
+  tab-size: 4;
+}
+
+
+/* ─── Body ───────────────────────────────────────────── */
+
+body {
+  min-height: 100vh;
+
+  /* prevent horizontal overflow at the root */
+  overflow-x: hidden;
+
+  /* inherit font from html — app layer sets this */
+  font-family: inherit;
+  line-height: inherit;
+}
+
+
+/* ─── Headings ───────────────────────────────────────── */
+
+/*
+  Browser defaults make h1–h6 large and bold.
+  In a component system, headings are semantic — visual
+  size is applied via className (text-xl, font-semibold).
+  Without this, <Stack as="h1"> or <Text as="h2"> would
+  unexpectedly blow up in size.
+*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+
+/* ─── Links ──────────────────────────────────────────── */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ─── Lists ──────────────────────────────────────────── */
+
+ul, ol {
+  list-style: none;
+}
+
+
+/* ─── Images and media ───────────────────────────────── */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/*
+  Remove the extra space browsers add below inline images.
+  display: block above handles this but this is a safety net.
+*/
+img {
+  height: auto;
+  vertical-align: middle;
+  font-style: italic; /* shows alt text with style if image fails */
+}
+
+
+/* ─── Form elements ──────────────────────────────────── */
+
+/*
+  Without these, <Button>, <input>, <select> get browser
+  default backgrounds, borders, and system fonts.
+*/
+
+button,
+input,
+textarea,
+select,
+optgroup {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+button {
+  cursor: pointer;
+  text-align: left;
+  line-height: inherit;
+}
+
+/*
+  Restore pointer for non-interactive buttons.
+  [disabled] should not look clickable.
+*/
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+/*
+  Remove the inner border and padding in Firefox.
+*/
+::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/*
+  Fix textarea resize direction.
+  Horizontal resize breaks layouts — vertical is safe.
+*/
+textarea {
+  resize: vertical;
+}
+
+/*
+  Remove default number input spinners.
+*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/*
+  Remove default search input chrome.
+*/
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/*
+  Fix placeholder opacity in Firefox.
+*/
+::placeholder {
+  opacity: 1;
+  color: inherit;
+}
+
+
+/* ─── Tables ─────────────────────────────────────────── */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  font-weight: inherit;
+  text-align: left;
+}
+
+
+/* ─── Embedded content ───────────────────────────────── */
+
+iframe {
+  border: none;
+}
+
+
+/* ─── Typography ─────────────────────────────────────── */
+
+/*
+  Remove default bold from strong and b.
+  Visual weight is applied via className in a component system.
+*/
+b, strong {
+  font-weight: bolder;
+}
+
+/*
+  Normalize small font size.
+*/
+small {
+  font-size: 80%;
+}
+
+/*
+  Prevent sub and sup from affecting line height.
+*/
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub { bottom: -0.25em; }
+sup { top: -0.5em; }
+
+
+/* ─── Code ───────────────────────────────────────────── */
+
+code,
+kbd,
+samp,
+pre {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+
+/* ─── HR ─────────────────────────────────────────────── */
+
+hr {
+  border: none;
+  border-top: 1px solid currentColor;
+  opacity: 0.2;
+  height: 0;
+}
+
+
+/* ─── Details / Summary ──────────────────────────────── */
+
+summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+
+/* ─── Dialog ─────────────────────────────────────────── */
+
+dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+/* ─── Focus ──────────────────────────────────────────── */
+
+/*
+  Remove default outline for mouse users.
+  Keep it for keyboard users via :focus-visible.
+  IMPORTANT: always provide a visible :focus-visible style
+  in your app layer — never remove focus completely.
+*/
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent, currentColor);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+
+/* ─── Scroll ─────────────────────────────────────────── */
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/*
+  Respect user's motion preferences.
+  Disable smooth scroll for users who prefer reduced motion.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ─── Hidden ─────────────────────────────────────────── */
+
+/*
+  Visually hidden but accessible to screen readers.
+  Use for labels, descriptions, skip links.
+*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/*
+  Skip to main content — keyboard accessibility.
+  Add <a href="#main" class="skip-link">Skip to content</a>
+  as the first element in <body>.
+*/
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--accent, #000);
+  color: var(--background, #fff);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}

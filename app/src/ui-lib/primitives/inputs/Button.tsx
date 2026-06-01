@@ -1,93 +1,107 @@
-import React from "react";
+import * as React from "react";
 
-import {
-  colors,
-  spacing,
-  typography,
-  radius,
-  transitions,
-  borders,
-} from "../../design-tokens";
+import { Scale } from "../../types/cssTokens";
+import { space } from "../../utils/cssTokensResolver";
 
-type FontSizeKey =
-  keyof typeof typography.fontSize;
+type ButtonElement = "button" | "a";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: FontSizeKey;
+type BaseProps = {
+  as?: ButtonElement;
+
+  gap?: Scale;
 
   fullWidth?: boolean;
-}
 
-export function Button({
-  size = "md",
+  children?: React.ReactNode;
 
-  fullWidth = false,
+  className?: string;
+  style?: React.CSSProperties;
+};
 
-  className,
-  style,
+type ButtonAsButton = BaseProps &
+  Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    keyof BaseProps
+  > & {
+    as?: "button";
+  };
 
-  children,
-  ...props
-}: ButtonProps) {
+type ButtonAsAnchor = BaseProps &
+  Omit<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    keyof BaseProps
+  > & {
+    as: "a";
+  };
+
+export type ButtonProps =
+  | ButtonAsButton
+  | ButtonAsAnchor;
+
+export function Button(props: ButtonProps) {
+  const {
+    gap = "2",
+
+    fullWidth = false,
+
+    className,
+    style,
+
+    children,
+  } = props;
+
+  const mergedStyle: React.CSSProperties = {
+    alignItems: "center",
+    justifyContent: "center",
+
+    gap: space(gap),
+
+    width: fullWidth
+      ? "100%"
+      : undefined,
+
+    minHeight: "var(--size-touch)",
+
+    whiteSpace: "nowrap",
+
+    cursor: "pointer",
+
+    textDecoration: "none",
+
+    boxSizing: "border-box",
+
+    ...style,
+  };
+
+  if (props.as === "a") {
+    const {
+      as,
+      ...anchorProps
+    } = props;
+
+    return (
+      <a
+        {...anchorProps}
+        className={`show-inline-flex ${className ?? ""}`}
+        style={mergedStyle}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  const {
+    as,
+    type,
+    ...buttonProps
+  } = props;
+
   return (
     <button
-      {...props}
-      className={className}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-
-        gap: spacing.inline.sm,
-
-        width: fullWidth
-          ? "100%"
-          : undefined,
-
-        paddingInline: spacing.inline.lg,
-        paddingBlock: spacing.stack.sm,
-
-        borderWidth:
-          borders.width.thin,
-
-        borderStyle:
-          borders.style.solid,
-
-        borderColor:
-          colors.border.default,
-
-        borderRadius:
-          radius.control,
-
-        background:
-          colors.background.surface,
-
-        color:
-          colors.text.primary,
-
-        fontFamily:
-          typography.fontFamily.sans,
-
-        fontSize:
-          typography.fontSize[size],
-
-        fontWeight:
-          typography.fontWeight.medium,
-
-        lineHeight:
-          typography.lineHeight.normal,
-
-        cursor: "pointer",
-
-        transition: `
-          background-color
-          ${transitions.duration.fast}
-          ${transitions.easing.easeOut}
-        `,
-
-        ...style,
-      }}
+      {...buttonProps}
+      type={type ?? "button"}
+      className={`show-inline-flex ${className ?? ""}`}
+      style={mergedStyle}
     >
       {children}
     </button>

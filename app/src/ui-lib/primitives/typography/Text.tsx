@@ -1,77 +1,55 @@
-import React from "react";
+import * as React from "react";
 
-import {
-  typography,
-  colors,
-} from "../../design-tokens";
+type ElementType = React.ElementType;
 
-type FontSizeKey =
-  keyof typeof typography.fontSize;
+type TextElement =
+  | "span"
+  | "p"
+  | "label"
+  | "small"
+  | "strong"
+  | "em"
+  | "blockquote"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6";
 
-type FontWeightKey =
-  keyof typeof typography.fontWeight;
+export type TextProps<C extends ElementType = "span"> = {
+  as?: C extends TextElement ? C : TextElement;
 
-export interface TextProps
-  extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
-
-  size?: FontSizeKey;
-
-  weight?: FontWeightKey;
-
-  color?: string;
-
-  align?:
-    React.CSSProperties["textAlign"];
+  className?: string;
+  style?: React.CSSProperties;
 
   truncate?: boolean;
-}
 
-export function Text({
-  as: Component = "p",
+  children?: React.ReactNode;
+};
 
-  size = "md",
-
-  weight = "regular",
-
-  color =
-    colors.text.primary,
-
-  align,
-
-  truncate = false,
-
+export function Text<C extends ElementType = "span">({
+  as,
   className,
   style,
-
+  truncate = false,
   children,
-  ...props
-}: TextProps) {
+  ...rest
+}: TextProps<C>) {
+  const Component = (as || "span") as ElementType;
+
   return (
     <Component
-      {...props}
+      {...rest}
       className={className}
       style={{
-        fontFamily:
-          typography.fontFamily.sans,
-
-        fontSize:
-          typography.fontSize[size],
-
-        fontWeight:
-          typography.fontWeight[weight],
-
-        lineHeight:
-          typography.lineHeight.normal,
-
-        color,
-
-        textAlign: align,
+        minWidth: 0,
+        overflowWrap: "break-word",
 
         ...(truncate && {
           overflow: "hidden",
-          whiteSpace: "nowrap",
           textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
         }),
 
         ...style,

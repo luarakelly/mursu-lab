@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import { PageHeader } from "../../components/blog/PageHeader";
+import AppPagination from "../../components/shell/pagination/AppPagination";
 ---
 
 <BaseLayout>
-  <h1>About</h1>
-  <p>Blog Page</p>
+  <PageHeader />
+  <AppPagination/>
 </BaseLayout>

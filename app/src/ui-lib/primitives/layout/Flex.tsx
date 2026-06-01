@@ -1,37 +1,88 @@
-import React from "react";
+import * as React from "react";
+import type { SpaceToken, MinWidthToken } from "../../types/cssTokens";
+import { space, minWidth as resolveMinWidth } from "../../utils/cssTokensResolver";
 
-type FlexProps = React.HTMLAttributes<HTMLDivElement> & {
-  direction?: "row" | "column";
+type ElementType = React.ElementType;
+
+export type FlexOwnProps<C extends ElementType = "div"> = {
+  as?: C;
+  direction?: React.CSSProperties["flexDirection"];
   align?: React.CSSProperties["alignItems"];
   justify?: React.CSSProperties["justifyContent"];
   wrap?: React.CSSProperties["flexWrap"];
-  gap?: React.CSSProperties["gap"];
+  gap?: SpaceToken;
+  grow?: React.CSSProperties["flexGrow"];
+  shrink?: React.CSSProperties["flexShrink"];
+  basis?: React.CSSProperties["flexBasis"];
+  fullWidth?: boolean;
+  fullHeight?: boolean;
+  width?: React.CSSProperties["width"];
+  height?: React.CSSProperties["height"];
+  minWidth?: MinWidthToken;
+  minHeight?: React.CSSProperties["minHeight"];
+  maxWidth?: React.CSSProperties["maxWidth"];
+  maxHeight?: React.CSSProperties["maxHeight"];
+  inline?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
 };
 
-export function Flex({
+export type FlexProps<C extends ElementType = "div"> =
+  FlexOwnProps<C> &
+  Omit<React.ComponentPropsWithRef<C>, keyof FlexOwnProps<C>>;
+
+export function Flex<C extends ElementType = "div">({
+  as,
   direction = "row",
   align,
   justify,
-  wrap,
+  wrap = "nowrap",
   gap,
+  grow,
+  shrink,
+  basis,
+  fullWidth = false,
+  fullHeight = false,
+  width,
+  height,
+  minWidth = "0",
+  minHeight,
+  maxWidth,
+  maxHeight,
+  inline = false,
+  className,
   style,
   children,
-  ...props
-}: FlexProps) {
+  ...rest
+}: FlexProps<C>) {
+  const Component = (as ?? "div") as ElementType;
+
   return (
-    <div
-      {...props}
+    <Component
+      {...rest}
+      className={className}
       style={{
-        display: "flex",
+        display: inline ? "inline-flex" : "flex",
         flexDirection: direction,
         alignItems: align,
         justifyContent: justify,
         flexWrap: wrap,
-        gap,
+        gap: space(gap),
+        flexGrow: grow,
+        flexShrink: shrink,
+        flexBasis: basis,
+        width: fullWidth ? "100%" : width,
+        height: fullHeight ? "100%" : height,
+        minWidth: resolveMinWidth(minWidth),
+        minHeight,
+        maxWidth,
+        maxHeight,
+        boxSizing: "border-box",
         ...style,
       }}
     >
       {children}
-    </div>
+    </Component>
   );
 }

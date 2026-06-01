@@ -1,0 +1,7 @@
+---
+import { AppHeader } from "./AppHeader";
+
+const currentPath = Astro.url.pathname;
+---
+
+<AppHeader currentPath={currentPath} client:load />

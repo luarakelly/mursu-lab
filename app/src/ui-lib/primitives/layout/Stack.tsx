@@ -1,32 +1,42 @@
-import React from "react";
+import * as React from "react";
 
-type StackProps = React.HTMLAttributes<HTMLDivElement> & {
-  gap?: React.CSSProperties["gap"];
-  align?: React.CSSProperties["alignItems"];
-  justify?: React.CSSProperties["justifyContent"];
+import { Flex } from "./Flex";
+import { SpaceToken } from "../../types/cssTokens";
+
+type StackProps = Omit<
+  React.ComponentProps<typeof Flex>,
+  "direction"
+> & {
+  direction?: "row" | "column";
+  gap?: SpaceToken;
 };
 
 export function Stack({
-  gap = "12px",
+  direction = "column",
+  gap = "3",
   align,
   justify,
-  style,
-  children,
+  wrap = "wrap",
+  grow,
+  shrink,
+  minWidth = "0",
+  as,
+  className,
   ...props
 }: StackProps) {
   return (
-    <div
+    <Flex
+      as={as}
+      direction={direction}
+      gap={gap}
+      align={align}
+      justify={justify}
+      wrap={wrap}
+      grow={grow}
+      shrink={shrink}
+      minWidth={minWidth}
+      className={className}
       {...props}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap,
-        alignItems: align,
-        justifyContent: justify,
-        ...style,
-      }}
-    >
-      {children}
-    </div>
+    />
   );
 }
