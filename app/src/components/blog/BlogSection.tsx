@@ -29,7 +29,7 @@ type Props = {
 
 const POSTS_PER_PAGE = 4;
 
-export function BlogSection({ posts, allTags }: Props) {
+export function BlogSection({ posts, allTags }: Props) {  
   // search first
   const search = useSearch({
     items: posts,
