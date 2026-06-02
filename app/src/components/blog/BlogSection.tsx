@@ -56,18 +56,15 @@ export function BlogSection({ posts, allTags }: Props) {
 
   return (
     <Section
+      direction="row"
+      align="flex-start"
       justify="center"
-
-      fullWidth
-      className="p-4"
+      gap="6"
+      className="pl-4"
+      maxWidth="74rem"
     >
+      
       <h2 className="sr-only">Articles</h2>
-      <Stack
-    direction="row"
-    gap="6"
-    maxWidth="72rem"   
-  >
-    
       <Sidebar
         allTags={allTags}
         activeTags={filter.active}
@@ -110,8 +107,6 @@ export function BlogSection({ posts, allTags }: Props) {
             />
           )}
         </Stack>
-  </Stack>
-      
     </Section>
   );
 }
