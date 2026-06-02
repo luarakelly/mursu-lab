@@ -1,27 +1,21 @@
-import * as React from "react";
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type FooterProps =
-  React.ComponentPropsWithoutRef<"footer">;
+export type FooterProps = StackProps;
 
 export function Footer({
   className,
-  style,
-  children,
   ...props
 }: FooterProps) {
   return (
-    <footer
+    <Stack
+      as="footer"
+      className={[
+        "w-full",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
-      className={className}
-      style={{
-        width: "100%",
-        minWidth: 0,
-        boxSizing: "border-box",
-
-        ...style,
-      }}
-    >
-      {children}
-    </footer>
+    />
   );
 }

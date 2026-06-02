@@ -1,14 +1,15 @@
 import * as React from "react";
 
 import { Flex } from "./Flex";
-import { SpaceToken } from "../../types/cssTokens";
+import { SpaceToken, MinWidthToken } from "../../types/cssTokens";
 
-type StackProps = Omit<
+export type StackProps = Omit<
   React.ComponentProps<typeof Flex>,
   "direction"
 > & {
   direction?: "row" | "column";
   gap?: SpaceToken;
+  minWidth?: MinWidthToken;
 };
 
 export function Stack({

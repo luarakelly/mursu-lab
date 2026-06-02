@@ -1,26 +1,21 @@
-import * as React from "react";
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type CardProps =
-  React.ComponentPropsWithoutRef<"article">;
+export type CardProps = StackProps;
 
 export function Card({
   className,
-  style,
-  children,
   ...props
 }: CardProps) {
   return (
-    <article
+    <Stack
+      as="article"
+      className={[
+        "overflow-hidden",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
-      className={className}
-      style={{
-        minWidth: 0,
-        overflow: "hidden",
-        boxSizing: "border-box",
-        ...style,
-      }}
-    >
-      {children}
-    </article>
+    />
   );
 }

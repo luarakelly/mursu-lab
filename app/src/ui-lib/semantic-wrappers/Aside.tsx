@@ -1,20 +1,24 @@
-// ui-lib/semantic-wrappers/Aside.tsx
-import * as React from "react";
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type AsideProps = React.ComponentPropsWithoutRef<"aside">;
+export type AsideProps = StackProps & {
+  sticky?: boolean;
+};
 
-export function Aside({ className, style, children, ...props }: AsideProps) {
+export function Aside({
+  sticky,
+  className,
+  ...props
+}: AsideProps) {
   return (
-    <aside
+    <Stack
+      as="aside"
+      className={[
+        sticky && "sticky top-0 z-sticky",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
-      className={className}
-      style={{
-        minWidth: 0,
-        boxSizing: "border-box",
-        ...style,
-      }}
-    >
-      {children}
-    </aside>
+    />
   );
 }

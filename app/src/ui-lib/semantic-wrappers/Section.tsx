@@ -1,28 +1,21 @@
-import * as React from "react";
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type SectionProps =
-  React.ComponentPropsWithoutRef<"section">;
+export type SectionProps = StackProps;
 
 export function Section({
   className,
-  style,
-  children,
   ...props
 }: SectionProps) {
   return (
-    <section
+    <Stack
+      as="section"
+      className={[
+        "w-full",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
-      className={className}
-      style={{
-        width: "100%",
-        minWidth: 0,
-
-        boxSizing: "border-box",
-
-        ...style,
-      }}
-    >
-      {children}
-    </section>
+    />
   );
 }
