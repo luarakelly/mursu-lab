@@ -2,8 +2,10 @@
 import "../ui-lib/css/index.css";
 import "../styles/global.css";
 
-import AppHeader from "../components/shell/app-header/AppHeader.astro";
-import AppFooter from "../components/shell/app-footer/AppFooter.astro";
+import { AppHeader } from "../components/shell/app-header/AppHeader";
+import { AppFooter } from "../components/shell/app-footer/AppFooter";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <html lang="en">
@@ -18,7 +20,7 @@ import AppFooter from "../components/shell/app-footer/AppFooter.astro";
   </head>
 
   <body class="app-shell">
-    <AppHeader />
+    <AppHeader currentPath={currentPath} client:load />
 
     <main class="page-shell">
       <slot />

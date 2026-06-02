@@ -64,9 +64,7 @@ export function BlogSection({ posts, allTags }: Props) {
         gap="6"
         style={{
           maxWidth: "72rem",
-          margin: "0 auto",
           padding: "var(--space-5)",
-          width: "100%",
         }}
       >
         <Sidebar
@@ -77,7 +75,7 @@ export function BlogSection({ posts, allTags }: Props) {
           onSearchChange={search.setQuery}
         />
 
-        <Stack gap="4" style={{ flex: 1, minWidth: 0 }}>
+        <Stack gap="4" minWidth="3" style={{ flex: 1 }}>
           <Text
             className="font-mono text-sm"
             style={{
