@@ -60,7 +60,7 @@ export function BlogSection({ posts, allTags }: Props) {
       align="flex-start"
       justify="center"
       gap="6"
-      className="pl-4"
+      className="pl-2"
       maxWidth="74rem"
     >
       
