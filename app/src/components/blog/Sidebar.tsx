@@ -23,8 +23,8 @@ export function Sidebar({
   return (
     <Aside
       gap="5"
+      className="p-2"
       maxWidth="16rem"
-      className="pl-2"
     >
       <Text
         className="font-mono text-sm"

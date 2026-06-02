@@ -60,8 +60,8 @@ export function BlogSection({ posts, allTags }: Props) {
       align="flex-start"
       justify="center"
       gap="6"
-      className="pl-2"
-      maxWidth="74rem"
+      className="p-2"
+      maxWidth="84rem"
     >
       
       <h2 className="sr-only">Articles</h2>
