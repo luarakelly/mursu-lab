@@ -1,16 +1,17 @@
-import { Stack, StackProps } from "../primitives/layout/Stack";
+import * as React from "react";
 
-export type FooterProps = StackProps;
+export type InputProps =
+  React.ComponentPropsWithoutRef<"input">;
 
-export function Footer({
+export function Input({
   className,
   ...props
-}: FooterProps) {
+}: InputProps) {
   return (
-    <Stack
-      as="footer"
+    <input
       className={[
         "w-full",
+        "min-w-0",
         className,
       ]
         .filter(Boolean)

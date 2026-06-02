@@ -1,16 +1,19 @@
 import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type CardProps = StackProps;
+export type AsideProps = StackProps & {
+  sticky?: boolean;
+};
 
-export function Card({
+export function Aside({
+  sticky,
   className,
   ...props
-}: CardProps) {
+}: AsideProps) {
   return (
     <Stack
-      as="article"
+      as="aside"
       className={[
-        "overflow-hidden",
+        sticky && "sticky top-0 z-sticky",
         className,
       ]
         .filter(Boolean)

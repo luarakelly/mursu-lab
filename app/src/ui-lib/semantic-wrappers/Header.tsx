@@ -1,47 +1,25 @@
-import * as React from "react";
+import { Stack, StackProps  } from "../primitives/layout/Stack";
 
 export type HeaderProps = {
   sticky?: boolean;
-
-  className?: string;
-  style?: React.CSSProperties;
-
-  children?: React.ReactNode;
-};
+}& StackProps;
 
 export function Header({
-  sticky = false,
-
+  sticky,
   className,
-  style,
-
-  children,
+  ...props
 }: HeaderProps) {
   return (
-    <header
-      className={className}
-      style={{
-        width: "100%",
-        minWidth: 0,
-
-        position: sticky
-          ? "sticky"
-          : undefined,
-
-        top: sticky
-          ? 0
-          : undefined,
-
-        zIndex: sticky
-          ? 50
-          : undefined,
-
-        boxSizing: "border-box",
-
-        ...style,
-      }}
-    >
-      {children}
-    </header>
+    <Stack
+      as="header"
+      className={[
+        "w-full",
+        sticky && "sticky top-0 z-sticky",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    />
   );
 }

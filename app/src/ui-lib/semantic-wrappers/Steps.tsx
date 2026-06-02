@@ -1,16 +1,12 @@
 import * as React from "react";
-import { Stack } from "../primitives/layout/Stack";
-import { Scale } from "../types/cssTokens";
 
-export type StepsProps = {
-  direction?: "column" | "row";
-  gap?: Scale;
-  connector?: React.ReactNode;
-  connectorClassName?: string;
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-};
+import { Stack, StackProps } from "../primitives/layout/Stack";
+
+export type StepsProps =
+  StackProps & {
+    connector?: React.ReactNode;
+    connectorClassName?: string;
+  };
 
 export function Steps({
   direction = "column",
@@ -19,7 +15,7 @@ export function Steps({
   connectorClassName,
   children,
   className,
-  style,
+  ...props
 }: StepsProps) {
   const items = React.Children.toArray(children);
 
@@ -29,19 +25,21 @@ export function Steps({
       direction={direction}
       wrap={direction === "row" ? "wrap" : "nowrap"}
       gap={gap}
-      className={className}
-      style={{
-        width: "100%",
-        padding: 0,
-        margin: 0,
-        listStyle: "none",
-        ...style,
-      }}
+      className={[
+        "w-full",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
     >
       {items.map((child, index) => {
-        if (!React.isValidElement(child)) return child;
+        if (!React.isValidElement(child)) {
+          return child;
+        }
 
-        const isLast = index === items.length - 1;
+        const isLast =
+          index === items.length - 1;
 
         return React.cloneElement(
           child as React.ReactElement<any>,

@@ -22,34 +22,30 @@ export function TerminalCards({
         direction="row"
         align="center"
         justify="space-between"
-        className="border-b px-3 py-2"
+        className="border-b px-3"
       >
         <Text>
           mursu@lab:~$ {title}
         </Text>
 
-        <Ellipsis size={16} />
+        <Ellipsis size={42} />
       </Stack>
 
       {/* MAIN CONTENT */}
-      <Stack className="p-3">
-        <List>
+        <List className="pb-3 px-3">
           {contentList.map((item, index) => (
             <li key={index}>
               {item}
             </li>
           ))}
         </List>
-      </Stack>
+
 
       {/* FOOTER / PROMPT */}
-      <Stack
-        className="border-t px-3 py-2"
-      >
-        <Text>
+        <Text className="border-t px-3 py-2">
           &gt; _
         </Text>
-      </Stack>
+
 
     </Card>
   );

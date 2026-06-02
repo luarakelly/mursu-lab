@@ -1,11 +1,29 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+import { getCollection } from "astro:content";
+
 import { PageHeader } from "../../components/blog/PageHeader";
-import AppPagination from "../../components/shell/pagination/AppPagination";
+import { BlogSection } from "../../components/blog/BlogSection";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+
+const posts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .map((p) => ({
+    slug: p.id.replace(".mdx", ""),
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.date.toISOString(),
+    tags: p.data.tags ?? [],
+    readTime: Math.ceil((p.body?.split(" ").length ?? 0) / 200),
+  }));
+
+const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
+
 ---
 
 <BaseLayout>
   <PageHeader />
-  <AppPagination/>
+  <BlogSection client:load posts={posts} allTags={allTags} />
 </BaseLayout>

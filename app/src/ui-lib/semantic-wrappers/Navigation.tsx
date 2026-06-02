@@ -1,42 +1,23 @@
 // TODO: add behaviour like active link in the patterns/interactive and reuse it here, aria-current, etc. 
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-import * as React from "react";
-
-import { Stack } from "../primitives/layout/Stack";
-import { Scale } from "../types/cssTokens";
-
-export type NavigationProps = {
-  direction?: "row" | "column";
-
-  gap?: Scale;
-
-  children?: React.ReactNode;
-
-  className?: string;
-  style?: React.CSSProperties;
-};
+export type NavigationProps = StackProps;
 
 export function Navigation({
-  direction = "row",
-
-  gap = "4",
-
+  direction,
+  align,
+  gap,
   className,
-  style,
-
-  children,
+  ...props
 }: NavigationProps) {
   return (
      <Stack
       as="nav"
-      direction={direction}
-      gap={gap}
-      wrap="wrap"
-      align="center"
+      direction={direction ?? "row"}
+      gap={gap ?? "4"}
+      align={align ?? "center"}
       className={className}
-      style={{...style,}}
-    >
-      {children}
-    </Stack>
+      {...props}
+    />
   );
 }

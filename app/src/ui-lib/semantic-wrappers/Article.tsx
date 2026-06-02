@@ -1,26 +1,21 @@
-import * as React from "react";
+import { Stack, StackProps } from "../primitives/layout/Stack";
 
-export type ArticleProps =
-  React.ComponentPropsWithoutRef<"article">;
+export type ArticleProps = StackProps;
 
 export function Article({
   className,
-  style,
-  children,
   ...props
 }: ArticleProps) {
   return (
-    <article
+    <Stack
+      as="article"
+      className={[
+        "w-full",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
-      className={className}
-      style={{
-        width: "100%",
-        minWidth: 0,
-        boxSizing: "border-box",
-        ...style,
-      }}
-    >
-      {children}
-    </article>
+    />
   );
 }

@@ -30,16 +30,14 @@ export function AppHeader({ currentPath }: Props) {
   }
 
   return (
-    <Header className="font-mono text-sm border-b">
-      
-      {/* MAIN HEADER ROW */}
-      <Stack
-        direction="row"
-        align="center"
-        justify="space-between"
-        wrap="wrap"
-        className="p-3 gap-4"
-      >
+    /* MAIN HEADER ROW */
+    <Header 
+      className="font-mono text-sm border-b p-3 gap-4"
+      direction="row"
+      align="center"
+      justify="space-between"
+      wrap="wrap"
+    >
         {/* LEFT / BRAND */}
         <Button as="a" href="/" className="gap-3">
           <FlaskConical
@@ -97,7 +95,6 @@ export function AppHeader({ currentPath }: Props) {
             githubUrl={GITHUB_URL}
           />
         </Stack>
-      </Stack>
     </Header>
   );
 }
