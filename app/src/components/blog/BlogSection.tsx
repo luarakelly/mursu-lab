@@ -55,42 +55,29 @@ export function BlogSection({ posts, allTags }: Props) {
   }, [search.query, filter.active]);
 
   return (
-    <Section>
+    <Section
+      justify="center"
+
+      fullWidth
+      className="p-4"
+    >
       <h2 className="sr-only">Articles</h2>
-
       <Stack
-        direction="row"
-        align="flex-start"
-        gap="6"
-        style={{
-          maxWidth: "72rem",
-          padding: "var(--space-5)",
-        }}
-      >
-        <Sidebar
-          allTags={allTags}
-          activeTags={filter.active}
-          search={search.query}
-          onTagToggle={filter.toggle}
-          onSearchChange={search.setQuery}
-        />
+    direction="row"
+    gap="6"
+    maxWidth="72rem"   
+  >
+    
+      <Sidebar
+        allTags={allTags}
+        activeTags={filter.active}
+        search={search.query}
+        onTagToggle={filter.toggle}
+        onSearchChange={search.setQuery}
+      />
 
-        <Stack gap="4" minWidth="3" style={{ flex: 1 }}>
-          <Text
-            className="font-mono text-sm"
-            style={{
-              color: "var(--foreground-muted)",
-              textAlign: "right",
-            }}
-          >
-            Showing{" "}
-            <span style={{ color: "var(--accent)" }}>
-              {filter.results.length}
-            </span>{" "}
-            {filter.results.length === 1 ? "post" : "posts"}
-          </Text>
-
-          {pagination.paginated.length > 0 ? (
+      <Stack gap="4" minWidth="3" style={{ flex: 1 }}>
+        {pagination.paginated.length > 0 ? (
             <List gap="0">
               {pagination.paginated.map((post) => (
                 <li key={post.slug}>
@@ -123,7 +110,8 @@ export function BlogSection({ posts, allTags }: Props) {
             />
           )}
         </Stack>
-      </Stack>
+  </Stack>
+      
     </Section>
   );
 }
