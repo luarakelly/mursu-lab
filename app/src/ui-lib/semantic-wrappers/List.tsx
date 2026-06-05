@@ -13,9 +13,8 @@ export function List({
       as="ul"
       direction={direction ?? "column"}
       gap={gap ?? "4"}
-      className={[
-        className,
-      ]
+      className={
+        [className]
         .filter(Boolean)
         .join(" ")}
       {...props}

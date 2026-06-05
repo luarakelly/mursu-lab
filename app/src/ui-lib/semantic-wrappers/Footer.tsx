@@ -9,10 +9,9 @@ export function Footer({
   return (
     <Stack
       as="footer"
-      className={[
-        "w-full",
-        className,
-      ]
+      fullWidth
+      className={
+        [className,]
         .filter(Boolean)
         .join(" ")}
       {...props}

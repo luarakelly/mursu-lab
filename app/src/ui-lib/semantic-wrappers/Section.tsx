@@ -9,10 +9,9 @@ export function Section({
   return (
     <Stack
       as="section"
-      className={[
-        "w-full",
-        className,
-      ]
+      fullWidth
+      className={
+        [className,]
         .filter(Boolean)
         .join(" ")}
       {...props}

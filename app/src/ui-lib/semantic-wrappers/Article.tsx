@@ -9,10 +9,9 @@ export function Article({
   return (
     <Stack
       as="article"
-      className={[
-        "w-full",
-        className,
-      ]
+      fullWidth
+      className={
+        [className]
         .filter(Boolean)
         .join(" ")}
       {...props}
