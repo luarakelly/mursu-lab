@@ -52,7 +52,6 @@ export function Button(props: ButtonProps) {
 
   const mergedStyle: React.CSSProperties = {
     alignItems: "center",
-    justifyContent: "center",
 
     gap: space(gap),
 

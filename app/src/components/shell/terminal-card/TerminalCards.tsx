@@ -15,7 +15,7 @@ export function TerminalCards({
   contentList = [],
 }: TerminalCardsProps) {
   return (
-    <Card className="rounded-md border">
+    <Card className="rounded-md border"  maxWidth="26rem">
       
       {/* TOP BAR */}
       <Stack

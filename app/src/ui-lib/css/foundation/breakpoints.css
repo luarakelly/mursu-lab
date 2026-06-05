@@ -16,6 +16,10 @@
   --min-w-8: clamp(36rem, 55vw, 40rem);
 }
 
+/* same as 0 style={{ margin: "0 auto" }} */
+.mx-auto { margin-inline: auto; }
+.my-auto { margin-block: auto; }
+
 /* responsive min width */
 .min-w-0 { min-width: 0; }
 .min-w-1 { min-width: var(--min-w-1); }

@@ -1,9 +1,84 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { LandingHero } from "../components/landing/LandingHero";
+import { LatestPosts } from "../components/landing/LatestPosts";
+import { BuildingInPublic } from "../components/landing/BuildingInPublic";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const allProjects = await getCollection("projects");
+
+// featured project for terminal card
+const featuredProject = allProjects.find((p) => p.data.featured);
+
+// posts that belong to the featured project
+const featuredProjectPosts = allPosts.filter(
+  (p) => p.data.project === featuredProject?.slug
+);
+
+// step ids completed — a step is done when a post has a matching stepId
+const steps = featuredProject?.data.steps ?? [];
+
+const completedStepIds = featuredProjectPosts
+  .map((p) => p.data.stepId)
+  .filter(Boolean) as string[];
+
+const completedSteps = steps.filter((step) =>
+  completedStepIds.includes(step.id)
+);
+
+const progress =
+  steps.length > 0
+    ? Math.round((completedSteps.length / steps.length) * 100)
+    : 0;
+
+// latest 3 posts sorted newest first
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3)
+  .map((p) => ({
+    slug: p.slug,
+    title: p.data.title,
+    description: p.data.description,
+    date: p.data.date.toISOString(),
+    tags: p.data.tags,
+    readTime: Math.ceil((p.body?.split(" ").length ?? 0) / 200),
+  }));
+
+// metrics for building in public
+const metrics = {
+  projectsInProgress: allProjects.filter((p) => p.data.status === "active").length,
+  articlesPublished: allPosts.length,
+};
+
+const terminalProject = featuredProject
+  ? {
+      title: featuredProject.data.title,
+      description: featuredProject.data.description,
+      status: featuredProject.data.status,
+      stack: featuredProject.data.stack,
+      steps: steps.map((s) => ({
+        ...s,
+        done: completedStepIds.includes(s.id),
+      })),
+      progress,
+      slug: featuredProject.slug,
+    }
+  : null;
 ---
 
 <BaseLayout>
-  <main class="container">
-    <h1>Landing Page</h1>
-  </main>
+  <LandingHero client:load project={terminalProject} />
+  <LatestPosts client:load posts={latestPosts} />
+  <BuildingInPublic
+    client:load
+    metrics={metrics}
+    projects={allProjects
+      .filter((p) => p.data.status === "active")
+      .map((p) => ({
+        slug: p.slug,
+        title: p.data.title,
+        status: p.data.status,
+      }))}
+  />
 </BaseLayout>

@@ -1,7 +1,40 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { ProjectsPageHeader } from "../../components/projects/ProjectsPageHeader";
+import { ProjectsSection } from "../../components/projects/ProjectsSection";
+
+const allProjects = await getCollection("projects");
+
+const projects = allProjects.map((p) => ({
+  slug: p.id,
+  title: p.data.title,
+  description: p.data.description,
+  status: p.data.status,
+  startedAt: p.data.startedAt.toISOString(),
+  stack: p.data.stack,
+  github: p.data.github,
+  demo: p.data.demo,
+  featured: p.data.featured,
+  cover: p.data.cover,
+}));
+
+const allTags = [...new Set(projects.flatMap((p) => p.stack))].sort();
+
+const statusCounts = projects.reduce((acc, p) => {
+  acc[p.status] = (acc[p.status] ?? 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+const metrics = {
+  total: projects.length,
+  inProgress: statusCounts["active"] ?? 0,
+  shipped: statusCounts["completed"] ?? 0,
+  experiments: statusCounts["planning"] ?? 0,
+};
 ---
 
 <BaseLayout>
-  <h1>Projects Page</h1>
+  <ProjectsPageHeader metrics={metrics} />
+  <ProjectsSection client:load projects={projects} allTags={allTags} />
 </BaseLayout>

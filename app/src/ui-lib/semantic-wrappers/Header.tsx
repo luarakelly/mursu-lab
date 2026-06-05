@@ -12,8 +12,8 @@ export function Header({
   return (
     <Stack
       as="header"
+      fullWidth
       className={[
-        "w-full",
         sticky && "sticky top-0 z-sticky",
         className,
       ]

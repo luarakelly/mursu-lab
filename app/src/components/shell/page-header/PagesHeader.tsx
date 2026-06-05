@@ -9,7 +9,7 @@ export function PagesHeader({
 }: { title?: React.ReactNode; subtitle?: React.ReactNode; description?: React.ReactNode; media?: React.ReactNode }) {
     return (
         <Header 
-            className="border-b px-4 py-7"
+            className="border-b px-4 py-7 max-w-2xl"
             gap="7" 
             direction="row" 
             align="center" 

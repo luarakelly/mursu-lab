@@ -4,6 +4,7 @@ import "../styles/global.css";
 
 import { AppHeader } from "../components/shell/app-header/AppHeader";
 import { AppFooter } from "../components/shell/app-footer/AppFooter";
+import { FindMe } from "../components/shell/find-me/FindMe";
 
 const currentPath = Astro.url.pathname;
 ---
@@ -26,6 +27,7 @@ const currentPath = Astro.url.pathname;
       <slot />
     </main>
 
+    <FindMe client:load />
     <AppFooter/>
   </body>
 </html>

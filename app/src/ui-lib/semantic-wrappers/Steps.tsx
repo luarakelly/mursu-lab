@@ -23,12 +23,9 @@ export function Steps({
     <Stack
       as="ol"
       direction={direction}
-      wrap={direction === "row" ? "wrap" : "nowrap"}
       gap={gap}
-      className={[
-        "w-full",
-        className,
-      ]
+      className={
+        [className,]
         .filter(Boolean)
         .join(" ")}
       {...props}

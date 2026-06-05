@@ -12,9 +12,10 @@
     "astro": "astro",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "format": "prettier --write .",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -35,6 +36,7 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
     "@vitest/ui": "^4.1.6",
     "eslint": "^10.4.0",
     "jsdom": "^29.1.1",
