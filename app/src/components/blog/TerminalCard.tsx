@@ -9,7 +9,7 @@ import { Text } from "../../ui-lib/primitives/typography/Text";
 export function TerminalCard() {
   return (
     <TerminalCards
-      title={<Text>blog_status</Text>}
+      title={<Text>status</Text>}
       contentList={[
         // INTRO BLOCK
         <Stack key="intro" minWidth="3">

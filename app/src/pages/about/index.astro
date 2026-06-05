@@ -1,11 +1,26 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import TimeLine from "../../components/about/TimeLine";
+import { getCollection } from "astro:content";
+import { AboutHero } from "../../components/about/AboutHero";
+import { TechAndTools } from "../../components/about/TechAndTools";
+import { JourneyAndHobbies } from "../../components/about/JourneyAndHobbies";
+import { WhatIValue } from "../../components/about/WhatIValue";
+
+const allProjects = await getCollection("projects");
+
+const activeProjects = allProjects
+  .filter((p) => p.data.status === "active")
+  .map((p) => ({
+    slug: p.slug,
+    title: p.data.title,
+    description: p.data.description,
+    stack: p.data.stack,
+  }));
 ---
 
 <BaseLayout>
-  <h1>About</h1>
-  <p>About Page</p>
-
-  <TimeLine/>
+  <AboutHero client:load />
+  <WhatIValue client:load />
+  <JourneyAndHobbies client:load />
+  <TechAndTools client:load />
 </BaseLayout>
