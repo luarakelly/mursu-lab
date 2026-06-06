@@ -24,17 +24,12 @@ export function Sidebar({
     <Aside
       gap="5"
       className="p-2"
-      maxWidth="16rem"
     >
       <Text
-        className="font-mono text-sm"
-        style={{
-          color: "var(--foreground-muted)",
-          textAlign: "left",
-        }}
+        className="font-mono text-sm text-muted"
       >
         Total:{" "}
-        <Text style={{ color: "var(--accent)" }}>
+        <Text>
           {allTags.length}
         </Text>{" "}
         {allTags.length === 1 ? "post" : "posts"}
@@ -51,18 +46,15 @@ export function Sidebar({
 
           <Stack
             direction="row"
+            wrap="nowrap"
             align="center"
             gap="2"
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: "var(--radius-sm)",
-              padding: "var(--space-2) var(--space-3)",
-            }}
+            className=" text-muted border rounded-sm px-2 py-3"
           >
             <Search
               size={14}
               aria-hidden="true"
-              style={{ color: "var(--foreground-muted)", flexShrink: 0 }}
+              className="text-muted"
             />
             <Input
               id="blog-search"
@@ -70,13 +62,7 @@ export function Sidebar({
               placeholder="Search..."
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="font-mono text-sm"
-              style={{
-                flex: 1,
-                minWidth: 0,
-                background: "transparent",
-                color: "var(--foreground)",
-              }}
+              className="font-mono"
             />
           </Stack>
         </Stack>
@@ -84,11 +70,7 @@ export function Sidebar({
         {/* tags */}
         <Stack gap="2">
           <Text
-            className="font-mono text-xs"
-            style={{
-              color: "var(--foreground-muted)",
-              letterSpacing: "0.08em",
-            }}
+            className="font-mono text-xs text-muted"
           >
             TAGS
           </Text>
@@ -101,13 +83,9 @@ export function Sidebar({
                   key={tag}
                   onClick={() => onTagToggle(tag)}
                   aria-pressed={isActive}
-                  className="font-mono text-xs"
+                  className="font-mono text-xs text-muted px-4 border rounded-sm"
                   style={{
-                    padding: "2px var(--space-2)",
-                    borderRadius: "var(--radius-sm)",
-                    border: "1px solid",
                     borderColor: isActive ? "var(--accent)" : "var(--border)",
-                    color: isActive ? "var(--accent)" : "var(--foreground-muted)",
                   }}
                 >
                   {tag}
@@ -120,8 +98,7 @@ export function Sidebar({
           {activeTags.length > 0 && (
             <Button
               onClick={() => activeTags.forEach((t) => onTagToggle(t))}
-              className="font-mono text-xs"
-              style={{ color: "var(--foreground-muted)", alignSelf: "flex-start" }}
+              className="font-mono text-xs text-muted"
             >
               ✕ clear filters
             </Button>

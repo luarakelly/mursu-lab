@@ -16,12 +16,8 @@ type Post = {
 export function PrimaryCard({ post }: { post: Post }) { 
   return ( 
     <Card 
-      className="p-4 border-b" 
-      direction="row" 
-      align="flex-start" 
-      justify="space-between" 
-      gap="4" 
-      wrap="wrap" 
+      gap="4"
+      className="p-4 border-b"
     > 
       <Stack 
         direction="row" 
@@ -33,7 +29,7 @@ export function PrimaryCard({ post }: { post: Post }) {
         <Stack
           align="center"
           justify="center"
-          className="rounded-md shrink-0"
+          className="rounded-md"
           style={{
             height: "4rem",
             minWidth: "4rem",
@@ -64,7 +60,7 @@ export function PrimaryCard({ post }: { post: Post }) {
       </Stack> 
       
       {/* tags */} 
-      <Stack direction="row" wrap="wrap" gap="2" fullWidth> 
+      <Stack direction="row" gap="2"> 
         {post.tags.map((tag) => ( 
           <span key={tag} className="font-mono text-xs px-2 py-1 border rounded-sm text-muted" > 
             {tag} 
@@ -77,8 +73,6 @@ export function PrimaryCard({ post }: { post: Post }) {
         align="center" 
         justify="space-between" 
         gap="3" 
-        className="shrink-0" 
-        fullWidth 
       > 
         <Stack direction="row" align="center" gap="1"> 
           <Clock3 size={13} className="text-muted" /> 
@@ -91,7 +85,7 @@ export function PrimaryCard({ post }: { post: Post }) {
         <Button
           as="a"
           href={`/blog/${post.slug}`}
-          className="font-mono text-sm text-accent flex items-center gap-1"
+          className="font-mono text-sm text-accent gap-1"
         >
           Read more
           <ArrowRight size={13} />
