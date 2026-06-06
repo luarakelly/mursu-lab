@@ -1,22 +1,39 @@
-name: Deploy to Cloudflare
+name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
 
-      - run: npm ci
-      - run: npm run build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Deploy
+      - name: Run tests
+        run: pnpm test --if-present
+
+      - name: Build
+        run: pnpm build
+
+      - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
