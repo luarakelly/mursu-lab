@@ -10,8 +10,8 @@ import { useSearch } from "../../ui-lib/patterns/hooks/useSearch";
 import { useFilter } from "../../ui-lib/patterns/hooks/useFilter";
 import { usePagination } from "../../ui-lib/patterns/hooks/usePagination";
 
-import { Sidebar } from "./Sidebar";
-import { PrimaryCard } from "./PrimaryCard";
+import { Sidebar } from "../shell/sidebar/Sidebar";
+import { BlogCard } from "./BlogCard";
 
 type Post = {
   slug: string;
@@ -29,83 +29,90 @@ type Props = {
 
 const POSTS_PER_PAGE = 4;
 
-export function BlogSection({ posts, allTags }: Props) {  
-  // search first
+export function BlogSection({ posts, allTags }: Props) {
   const search = useSearch({
     items: posts,
     keys: ["title", "description", "tags"],
   });
 
-  // then filter the searched results
   const filter = useFilter({
     items: search.results,
     key: "tags",
     mode: "and",
   });
 
-  // then paginate
   const pagination = usePagination({
     items: filter.results,
     perPage: POSTS_PER_PAGE,
   });
 
-  // reset page whenever search/filter changes
   useEffect(() => {
     pagination.reset();
   }, [search.query, filter.active]);
 
   return (
     <Section
-      direction="row"
-      align="flex-start"
-      justify="center"
+      responsiveColumns={{
+        base: "1fr",
+        md: "minmax(12rem, 20%) minmax(0, 1fr)",
+      }}
       gap="6"
-      className="p-2 max-w-xl"
     >
-      
       <h2 className="sr-only">Articles</h2>
+
       <Sidebar
+        totalCount={filter.results.length}
+        countLabel="post"
+        search={{
+          value: search.query,
+          onChange: search.setQuery,
+          placeholder: "Search...",
+          label: "Search articles",
+        }}
         allTags={allTags}
         activeTags={filter.active}
-        search={search.query}
         onTagToggle={filter.toggle}
-        onSearchChange={search.setQuery}
+        onClearTags={
+          filter.active.length > 0
+            ? () => filter.active.forEach((t) => filter.toggle(t))
+            : undefined
+        }
       />
 
-      <Stack gap="4" minWidth="3" style={{ flex: 1 }}>
+      <Stack gap="4">
         {pagination.paginated.length > 0 ? (
-            <List gap="0">
-              {pagination.paginated.map((post) => (
-                <li key={post.slug}>
-                  <PrimaryCard post={post} />
-                </li>
-              ))}
-            </List>
-          ) : (
-            <Text
-              className="font-mono text-sm"
-              style={{
-                color: "var(--foreground-muted)",
-                padding: "var(--space-6) 0",
-              }}
-            >
-              No posts match your filters.
-            </Text>
-          )}
+          <List gap="0">
+            {pagination.paginated.map((post) => (
+              <li key={post.slug}>
+                <BlogCard post={post} />
+              </li>
+            ))}
+          </List>
+        ) : (
+          <Text
+            className="font-mono text-sm"
+            style={{
+              color: "var(--foreground-muted)",
+              padding: "var(--space-6) 0",
+            }}
+          >
+            No posts match your filters.
+          </Text>
+        )}
 
-          {pagination.totalPages > 1 && (
-            <Pagination
-              currentPage={pagination.page}
-              hasPrevious={pagination.hasPrevious}
-              hasNext={pagination.hasNext}
-              onPrevious={pagination.goPrevious}
-              onNext={pagination.goNext}
-              previousLabel="← Previous"
-              nextLabel="Next →"
-              currentLabel={`${pagination.page} / ${pagination.totalPages}`}
-            />
-          )}
-        </Stack>
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={pagination.page}
+            hasPrevious={pagination.hasPrevious}
+            hasNext={pagination.hasNext}
+            onPrevious={pagination.goPrevious}
+            onNext={pagination.goNext}
+            previousLabel="← Previous"
+            nextLabel="Next →"
+            currentLabel={`${pagination.page} / ${pagination.totalPages}`}
+          />
+        )}
+      </Stack>
     </Section>
   );
 }
