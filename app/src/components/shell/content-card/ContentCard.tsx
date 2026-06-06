@@ -1,7 +1,6 @@
 import { Card } from "../../../ui-lib/semantic-wrappers/Card";
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../../ui-lib/primitives/typography/Text";
-import type { minWidth } from "../../../ui-lib/utils/cssTokensResolver";
 
 export type ContentCardProps = {
   media?: React.ReactNode;

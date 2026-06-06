@@ -17,7 +17,7 @@ const METRIC_ROWS = (m: Metrics) => [
   { key: "Experiments",     value: m.experiments,  sub: "Exploring & learning" },
 ];
 
-export function ProjectsPageHeader({ metrics }: { metrics: Metrics }) {
+export function ProjectsHeader({ metrics }: { metrics: Metrics }) {
   const terminal = (
     <TerminalCards
       title={<Text className="font-mono text-sm">projects_summary</Text>}
@@ -43,7 +43,7 @@ export function ProjectsPageHeader({ metrics }: { metrics: Metrics }) {
     <PagesHeader
       title={<Text className="font-mono text-xs text-muted">/projects</Text>}
       subtitle={
-        <Text as="h1" className="section-title">
+        <Text as="h1" className="text-4xl">
           Things I build.<br />
           Systems I ship._
         </Text>

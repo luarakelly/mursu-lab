@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 import { getCollection } from "astro:content";
 
-import { PageHeader } from "../../components/blog/PageHeader";
+import { BlogHeader } from "../../components/blog/BlogHeader";
 import { BlogSection } from "../../components/blog/BlogSection";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
@@ -24,6 +24,6 @@ const allTags = [...new Set(posts.flatMap((p) => p.tags))].sort();
 ---
 
 <BaseLayout>
-  <PageHeader />
+  <BlogHeader />
   <BlogSection client:load posts={posts} allTags={allTags} />
 </BaseLayout>
