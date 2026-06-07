@@ -8,7 +8,7 @@ import { Text } from "../../ui-lib/primitives";
 import { Stack } from "../../ui-lib/primitives";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("projects");
 
   return posts.map((post) => ({
     params: { slug: post.id },
@@ -29,6 +29,3 @@ const { Content } = await render(post);
     <Content />
   </Article>
 </BaseLayout>
-
-
-
