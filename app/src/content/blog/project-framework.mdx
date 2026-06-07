@@ -1,0 +1,150 @@
+---
+title: "Designing a Project Framework: The Foundation"
+description: "How I stopped starting projects differently every time and built a repeatable process for moving from idea to finished work."
+date: 2026-05-14
+tags:
+  - process
+  - dev-tools
+featured: false
+draft: false
+---
+
+## Why I Needed a Framework
+
+Every project I started began differently.
+
+Some were over-planned. I spent weeks designing architecture before writing a single line of code,
+only to discover mid-implementation that the design didn't fit the actual problem. Others were
+under-planned. I jumped straight into building, made fast early progress, then hit a wall when
+the structure couldn't support what I was trying to add.
+
+Most stalled for the same reason: the next step wasn't obvious.
+
+Not because I didn't know how to build things. But because I hadn't decided, before starting,
+what "done" looked like, what the project's constraints were, or what order things should happen in.
+Every project reinvented its own process, and that reinvention had a cost.
+
+I started building a framework — not for any specific project, but for _how I build anything_.
+
+---
+
+## The Stages
+
+The framework moves a project through seven stages. Each one has a clear entry point and a clear
+exit condition. You don't move forward until the current stage is resolved.
+
+### Idea
+
+Every project starts here, but most ideas are too vague to act on directly. The goal of this stage
+is not to validate the idea — it's to define it precisely enough that the next stage can begin.
+
+That means answering three questions before moving on:
+
+**What are the core user actions?** Write them as verbs. Not "the user can see their profile" but
+"the user views, edits, and deletes their profile." Verbs force specificity. Nouns let you defer it.
+
+**What are the constraints?** What does this project explicitly not do? Constraints are as important
+as features. A project without defined limits will expand until it collapses under its own scope.
+
+**What is the scale?** I classify projects into three sizes based on expected lines of code:
+small (monolith, 5k–9k lines), medium (modular monolith, 10k–50k lines), or large (services,
+50k+ lines). The size determines how much upfront architecture is worth doing. Over-engineering
+a small project is as costly as under-engineering a large one.
+
+### Research
+
+Once the idea is defined, this stage is about identifying what you don't know. What patterns apply
+here? What tradeoffs exist in the stack you're considering? What have others tried and where did
+they get stuck?
+
+Research is bounded. It ends when you have enough information to make architectural decisions,
+not when you've read everything available. The goal is to reduce uncertainty, not eliminate it.
+
+### Architecture
+
+This is where you decide how the project is structured before writing production code. Domain
+(frontend, backend, or both), folder structure, data flow, key abstractions.
+
+The output of this stage is not code — it is a plan specific enough that implementation can
+begin without making structural decisions on the fly. For a medium-scale project, this might mean
+a UI mockup, a database schema, and a defined folder structure. For a small project, it might just
+be a rough component map and a list of utilities you know you'll need.
+
+### Foundation
+
+Foundation is the stage most developers skip or rush through, and it's where most technical debt
+originates.
+
+This is where you set up everything that every future line of code depends on: the repository,
+version control, formatter, linter, TypeScript configuration, package scripts, and the initial
+folder structure with placeholders in place of real implementation.
+
+The rule here is that the foundation should be complete before any feature work starts. That means
+running `lint`, `format`, `build`, and `test` all pass on an otherwise empty project. If they
+don't, you're building features on unstable ground.
+
+### Implementation
+
+This is where the actual work happens — but it happens in a specific order.
+
+First, build the static structure. Add mock data for anything that will eventually come from an
+API or database, and build the interface or logic against that mock data first. This separates
+structural correctness from data correctness, and it means you can verify that the shape of
+the application is right before any real data exists.
+
+Then, progressively replace mock data with real logic: API calls, hooks, services, database
+queries. Add utilities and unit tests as you go, not at the end. Testing added retroactively
+almost never covers the cases that actually matter.
+
+Features are tracked as issues from the start. Before implementing anything, write it down. This
+keeps scope visible and prevents the project from silently expanding while you're heads-down
+in code.
+
+### Documentation
+
+Documentation written after implementation is documentation that describes what the code ended
+up being, not what it was intended to be. The difference matters.
+
+The most useful documentation is written continuously — a sentence in a commit message, a comment
+on an unexpected decision, a README section updated the moment a setup step changes. By the time
+implementation is complete, documentation should require assembly, not authorship.
+
+### Reflection
+
+The final stage is the one most easily skipped because the project feels done. It isn't.
+
+Reflection is where you ask: what did the plan get right? Where did the estimate break down?
+What would you do differently? What did you learn that should change how the next project starts?
+
+Without this stage, each project is a closed loop. With it, the framework itself improves over time.
+
+---
+
+## Lessons Learned
+
+**Not every project needs the same depth at every stage.** A small tool you're building for
+yourself moves through Research and Architecture in an afternoon. A medium-scale project might
+spend a week in Architecture alone. The stages are fixed; the time spent in each one scales
+with the project.
+
+**Documentation is easiest when it's continuous.** The longer you wait to write something down,
+the more context you've lost. A sentence written now is worth a paragraph written next week.
+
+**Frameworks should remove decisions, not create them.** The point of having a process is that
+you stop reinventing it. If following the framework requires more effort than not following it,
+the framework has too much friction and needs to be simplified.
+
+**The Foundation stage is non-negotiable.** Every shortcut taken there becomes a tax paid later,
+usually at the worst possible moment — mid-implementation, when momentum matters most.
+
+---
+
+## What This Enables
+
+The value of a framework is not that it makes projects easier. It's that it makes them more
+predictable. You still do the same work. But you stop losing time to process decisions that
+should have been made once and reused forever.
+
+The next two articles apply this framework concretely: first to a frontend project, then to a
+backend project. The stages stay the same. What changes is what each stage looks like when
+the domain is specific.
