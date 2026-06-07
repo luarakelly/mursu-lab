@@ -1,4 +1,6 @@
 import { Section } from "../../ui-lib/semantic-wrappers/Section";
+import { Collection } from "../../ui-lib/semantic-wrappers/Collection";
+
 import { Stack } from "../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../ui-lib/primitives/typography/Text";
 
@@ -31,31 +33,52 @@ function Tag({ label }: { label: string }) {
 
 export function TechAndTools() {
   return (
-    <Section 
+    <Section
       className="py-6 px-5"
       style={{
         borderTop: "1px solid var(--border)",
       }}
     >
-      <h2 className="sr-only">Tech and tools</h2>
-
-      <Stack gap="5" className="max-w-lg" style={{ margin: "0 auto", width: "100%" }}>
-
-        <Text className="font-mono text-xs" style={{ letterSpacing: "0.08em" }}>
-          TECH &amp; TOOLS
+      <Stack
+        gap="5"
+        className="max-w-lg"
+        style={{
+          margin: "0 auto",
+          width: "100%",
+        }}
+      >
+        <Text className="font-mono text-xs">
+          TECH & TOOLS
         </Text>
 
-        <Stack direction="row" wrap="wrap" gap="6" align="flex-start">
+        <Collection
+          responsiveColumns={{
+            base: "1fr",
+            md: "1fr 1fr",
+          }}
+          gap="6"
+        >
           {TECH.map(({ group, items }) => (
-            <Stack key={group} gap="3" minWidth="3" grow={1}>
-              <Text className="font-mono text-xs text-muted">{group}</Text>
-              <Stack direction="row" wrap="wrap" gap="2">
-                {items.map((item) => <Tag key={item} label={item} />)}
+            <Stack key={group} gap="3">
+              <Text className="font-mono text-xs text-muted">
+                {group}
+              </Text>
+
+              <Stack
+                direction="row"
+                wrap="wrap"
+                gap="2"
+              >
+                {items.map((item) => (
+                  <Tag
+                    key={item}
+                    label={item}
+                  />
+                ))}
               </Stack>
             </Stack>
           ))}
-        </Stack>
-
+        </Collection>
       </Stack>
     </Section>
   );
