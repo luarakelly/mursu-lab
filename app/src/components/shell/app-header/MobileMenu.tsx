@@ -37,7 +37,7 @@ export function MobileMenu({
             githubUrl={githubUrl}
           />
 
-          <Navigation direction="column">
+          <Navigation direction="column" style={{ background: "var(--background)" }}>
             {navLinks.map((link) => (
               <Button
                 key={link.href}
