@@ -148,7 +148,7 @@ export function HeaderControls({
 
       <Button
         as="a"
-        href="/contact"
+        href="/#contact"
         className="
           hide lg:show-flex
           px-4
