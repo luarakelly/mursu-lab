@@ -1,0 +1,65 @@
+---
+title: "Personal UI SDK Architecture"
+description: "A personal UI library built around primary layout, semantic composition, and reusable patterns."
+status: "active"
+startedAt: 2026-05-11
+stack:
+  - React
+  - TypeScrpt
+
+featured: true
+steps:
+  - id: "project-fountation"
+    label: "Project Foundation"
+  - id: "personal-UI-SDK"
+    label: "Personal UI SDK"
+  - id: "core-application"
+    label: "Core Application"
+  - id: "deployment"
+    label: "Deployment"
+  - id: "ci-cd"
+    label: "CI /CD"
+---
+
+Visit project Github => [personal UI SDK](https://github.com/luarakelly/mursu-lab/tree/main/app/src/ui-lib)
+
+### Component Architecture
+
+Most UI systems make one of two mistakes. They either couple visual style too tightly to
+structure — making components hard to reuse across different contexts — or they abstract so
+heavily that the system becomes harder to use than writing raw HTML.
+
+The approach that avoids both is a **layered headless architecture**: separate what a component
+_is_ from what it _looks like_, and build upward in discrete layers where each one only knows
+about the layer below it, that is why i chsed headless UI component.
+
+### Headless UI
+
+A headless component owns behavior and structure but carries no visual opinion. It handles
+accessibility, keyboard interaction, ARIA attributes, and DOM structure — but applies no color,
+no font. The visual layer is the caller's responsibility.
+
+This separation matters because the same structural component — a dropdown, a pagination control,
+a search input — needs to look different across different projects. If the behavior is coupled to
+the style, you either copy the component or fight the defaults. If they are separated, you reuse
+the behavior and apply the style independently every time.
+
+### Layered Composition System
+
+A single headless component is useful. A system of them, organized by layer and responsibility,
+is what makes an entire codebase consistent without enforcing it through convention.
+
+**Mursu Lab UI SDK** is structured as four layers:
+css-tokens → primitives → semantic-wrappers → patterns
+
+The full system is documented in the companion article
+[Building Interfaces with a Personal UI SDK](/blog/personal-UI-SDK).
+
+### Why This Structure
+
+The constraint that makes the system work is the one-directional dependency rule: each layer
+may only import from layers below it. A primitive never imports a semantic wrapper.
+
+This keeps the layers substitutable. You can replace the token layer without touching primitives.
+You can build a new semantic wrapper without modifying any pattern. The system grows by addition,
+not by modification — which is the property that makes it actually reusable across projects.

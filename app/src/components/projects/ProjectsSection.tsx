@@ -4,13 +4,15 @@ import { Section } from "../../ui-lib/semantic-wrappers/Section";
 import { List } from "../../ui-lib/semantic-wrappers/List";
 import { Stack } from "../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../ui-lib/primitives/typography/Text";
+import { Button } from "../../ui-lib/primitives/inputs/Button";
 import { Pagination } from "../../ui-lib/patterns/interactive/Pagination";
+
 import { useSearch } from "../../ui-lib/patterns/hooks/useSearch";
 import { useFilter } from "../../ui-lib/patterns/hooks/useFilter";
 import { usePagination } from "../../ui-lib/patterns/hooks/usePagination";
 
-import { ProjectsSidebar } from "./ProjectsSidebar";
-import { ProjectCard } from "./ProjectCard";
+import { Sidebar } from "../shell/sidebar/Sidebar";
+import { ProjectCard } from "./ProjectsCard";
 
 type Project = {
   slug: string;
@@ -30,111 +32,126 @@ type Props = {
 
 const PROJECTS_PER_PAGE = 6;
 
-export function ProjectsSection({ projects, allTags }: Props) {
-  const [activeStatus, setActiveStatus] = useState("all");
+const STATUS_OPTIONS = [
+  { label: "All", value: "all" },
+  { label: "In Progress", value: "in-progress" },
+] as const;
 
-  // filter by status first
-  const byStatus = useMemo(() =>
-    activeStatus === "all"
-      ? projects
-      : projects.filter((p) => p.status === activeStatus),
+type StatusValue = (typeof STATUS_OPTIONS)[number]["value"];
+
+export function ProjectsSection({ projects, allTags }: Props) {
+  const [activeStatus, setActiveStatus] = useState<StatusValue>("all");
+
+  const byStatus = useMemo(
+    () =>
+      activeStatus === "all"
+        ? projects
+        : projects.filter((p) => p.status === activeStatus),
     [projects, activeStatus]
   );
 
-  // then search
   const search = useSearch({
     items: byStatus,
     keys: ["title", "description", "stack"],
   });
 
-  // then filter by stack tags
   const filter = useFilter({
     items: search.results,
     key: "stack",
     mode: "and",
   });
 
-  // then paginate
   const pagination = usePagination({
     items: filter.results,
     perPage: PROJECTS_PER_PAGE,
   });
 
-  // reset page on any filter change
   useEffect(() => {
     pagination.reset();
   }, [search.query, filter.active, activeStatus]);
 
-  function handleStatusChange(status: string) {
-    setActiveStatus(status);
-    pagination.reset();
-  }
-
   return (
-    <Section className="py-6 px-5">
+    <Section
+      responsiveColumns={{
+        base: "1fr",
+        md: "minmax(12rem, 20%) minmax(0, 1fr)",
+      }}
+      gap="6"
+    >
       <h2 className="sr-only">Projects</h2>
 
-      <Stack
-        direction="row"
-        align="flex-start"
-        gap="6"
-        wrap="wrap"
-        className="max-w-xl mx-auto w-full"
+      <Sidebar
+        totalCount={filter.results.length}
+        countLabel="project"
+        search={{
+          value: search.query,
+          onChange: search.setQuery,
+          placeholder: "Search...",
+          label: "Search projects",
+        }}
+        allTags={allTags}
+        activeTags={filter.active}
+        tagsLabel="TECH &amp; TOOLS"
+        onTagToggle={filter.toggle}
+        onClearTags={
+          filter.active.length > 0
+            ? () => filter.active.forEach((t) => filter.toggle(t))
+            : undefined
+        }
       >
-        {/* sidebar */}
-        <ProjectsSidebar
-          allTags={allTags}
-          activeTags={filter.active}
-          activeStatus={activeStatus}
-          search={search.query}
-          totalCount={filter.results.length}
-          onTagToggle={filter.toggle}
-          onStatusChange={handleStatusChange}
-          onSearchChange={search.setQuery}
-        />
+        {/* STATUS — injected via extension slot */}
+        <Stack gap="2">
+          <Text className="font-mono text-xs text-muted">STATUS</Text>
 
-        {/* main */}
-        <Stack gap="4" minWidth="4" grow={1}>
-
-          {/* count */}
-          <Text className="font-mono text-sm text-muted" style={{ textAlign: "right" }}>
-            Showing{" "}
-            <span className="text-accent">{filter.results.length}</span>{" "}
-            {filter.results.length === 1 ? "project" : "projects"}
-          </Text>
-
-          {/* list */}
-          {pagination.paginated.length > 0 ? (
-            <Stack className="border rounded-lg overflow-hidden">
-              <List gap="0">
-                {pagination.paginated.map((project) => (
-                  <li key={project.slug}>
-                    <ProjectCard project={project} />
-                  </li>
-                ))}
-              </List>
-            </Stack>
-          ) : (
-            <Text className="font-mono text-sm text-muted py-6">
-              No projects match your filters.
-            </Text>
-          )}
-
-          {/* pagination */}
-          {pagination.totalPages > 1 && (
-            <Pagination
-              currentPage={pagination.page}
-              hasPrevious={pagination.hasPrevious}
-              hasNext={pagination.hasNext}
-              onPrevious={pagination.goPrevious}
-              onNext={pagination.goNext}
-              previousLabel="← Previous"
-              nextLabel="Next →"
-              currentLabel={`${pagination.page} / ${pagination.totalPages}`}
-            />
-          )}
-
+          <Stack direction="row" wrap="wrap" gap="2">
+            {STATUS_OPTIONS.map(({ label, value }) => (
+              <Button
+                key={value}
+                onClick={() => setActiveStatus(value)}
+                aria-pressed={activeStatus === value}
+                className={[
+                  "font-mono text-xs px-2 border rounded-sm",
+                  activeStatus === value
+                    ? "text-accent border-accent"
+                    : "text-muted",
+                ].join(" ")}
+              >
+                {label}
+              </Button>
+            ))}
+          </Stack>
         </Stack>
+      </Sidebar>
+
+      <Stack gap="4">
+        {pagination.paginated.length > 0 ? (
+          <List gap="0">
+            {pagination.paginated.map((project) => (
+              <li key={project.slug}>
+                <ProjectCard project={project} />
+              </li>
+            ))}
+          </List>
+        ) : (
+          <Text
+            className="font-mono text-sm text-muted px-6"
+          >
+            No projects match your filters.
+          </Text>
+        )}
+
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={pagination.page}
+            hasPrevious={pagination.hasPrevious}
+            hasNext={pagination.hasNext}
+            onPrevious={pagination.goPrevious}
+            onNext={pagination.goNext}
+            previousLabel="← Previous"
+            nextLabel="Next →"
+            currentLabel={`${pagination.page} / ${pagination.totalPages}`}
+          />
+        )}
       </Stack>
     </Section>
   );

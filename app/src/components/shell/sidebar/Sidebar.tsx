@@ -5,79 +5,96 @@ import { Button } from "../../../ui-lib/primitives/inputs/Button";
 import { Input } from "../../../ui-lib/primitives/inputs/Input";
 import { Search } from "lucide-react";
 
+export type SearchController = {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  label?: string;
+};
+
 export type SidebarProps = {
+  // stats
+  totalCount: number;
+  countLabel?: string; // "post", "project", etc.
+
+  search?: SearchController;
+
+  // tags
   allTags: string[];
   activeTags: string[];
-  search: string;
-  totalCount: number;
-  countLabel?: string;        // "post" | "project" — defaults to "item"
-  searchLabel?: string;       // screen reader label
-  tagsLabel?: string;         // section heading — defaults to "TAGS"
+  tagsLabel?: string;
   onTagToggle: (tag: string) => void;
-  onSearchChange: (value: string) => void;
-  children?: React.ReactNode; // slot for extra sections (e.g. categories)
+  onClearTags?: () => void;
+
+  // extension slot
+  children?: React.ReactNode;
 };
 
 export function Sidebar({
-  allTags,
-  activeTags,
-  search,
   totalCount,
   countLabel = "item",
-  searchLabel = "Search",
+
+  search,
+
+  allTags,
+  activeTags,
   tagsLabel = "TAGS",
   onTagToggle,
-  onSearchChange,
+  onClearTags,
+
   children,
 }: SidebarProps) {
   return (
-    <Aside gap="5" className="p-2" maxWidth="16rem">
+    <Aside gap="5" className="p-2">
 
-      {/* total count */}
+      {/* STATS */}
       <Text className="font-mono text-sm text-muted">
         Total:{" "}
         <span className="text-accent">{totalCount}</span>{" "}
         {totalCount === 1 ? countLabel : `${countLabel}s`}
       </Text>
 
-      {/* search */}
-      <Stack gap="2">
-        <label htmlFor="sidebar-search" className="sr-only">
-          {searchLabel}
-        </label>
-        <Stack
-          direction="row"
-          align="center"
-          gap="2"
-          className="border rounded-sm px-3 py-2"
-        >
-          <Search size={14} className="text-muted no-shrink" aria-hidden="true" />
-          <Input
-            id="sidebar-search"
-            type="search"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="font-mono text-sm"
-          />
-        </Stack>
-      </Stack>
+      {/* SEARCH */}
+      {search && (
+        <Stack gap="2">
+          <label htmlFor="sidebar-search" className="sr-only">
+            {search.label ?? "Search"}
+          </label>
 
-      {/* extra sections injected by consumer (e.g. categories) */}
+          <Stack
+            direction="row"
+            align="center"
+            gap="2"
+            wrap="nowrap"
+            className="border rounded-sm px-3 py-2"
+          >
+            <Search size={14} className="text-muted" aria-hidden="true" />
+
+            <Input
+              id="sidebar-search"
+              type="search"
+              placeholder={search.placeholder ?? "Search..."}
+              value={search.value}
+              onChange={(e) => search.onChange(e.target.value)}
+              className="font-mono text-sm"
+            />
+          </Stack>
+        </Stack>
+      )}
+
+      {/* EXTENSION SLOT */}
       {children}
 
-      {/* tags */}
+      {/* TAGS */}
       <Stack gap="2">
-        <Text
-          className="font-mono text-xs text-muted"
-          style={{ letterSpacing: "0.08em" }}
-        >
+        <Text className="font-mono text-xs text-muted">
           {tagsLabel}
         </Text>
 
         <Stack direction="row" wrap="wrap" gap="2">
           {allTags.map((tag) => {
             const isActive = activeTags.includes(tag);
+
             return (
               <Button
                 key={tag}
@@ -85,7 +102,9 @@ export function Sidebar({
                 aria-pressed={isActive}
                 className={[
                   "font-mono text-xs px-2 border rounded-sm",
-                  isActive ? "text-accent border-accent" : "text-muted",
+                  isActive
+                    ? "text-accent border-accent"
+                    : "text-muted",
                 ].join(" ")}
               >
                 {tag}
@@ -94,9 +113,9 @@ export function Sidebar({
           })}
         </Stack>
 
-        {activeTags.length > 0 && (
+        {activeTags.length > 0 && onClearTags && (
           <Button
-            onClick={() => activeTags.forEach((t) => onTagToggle(t))}
+            onClick={onClearTags}
             className="font-mono text-xs text-muted"
           >
             ✕ clear filters

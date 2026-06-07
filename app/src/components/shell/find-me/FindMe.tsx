@@ -1,94 +1,81 @@
 import { Section } from "../../../ui-lib/semantic-wrappers/Section";
+import { Collection } from "../../../ui-lib/semantic-wrappers/Collection";
+
 import { Stack } from "../../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../../ui-lib/primitives/typography/Text";
 import { Button } from "../../../ui-lib/primitives/inputs/Button";
-//import { Github, Linkedin, Mail } from "lucide-react";
 
 const LINKS = [
   {
-    //icon: <Github size={20} aria-hidden="true" />,
     label: "GitHub",
     sub: "github.com/luarakelly",
     href: "https://github.com/luarakelly",
   },
   {
-    //icon: <Linkedin size={20} aria-hidden="true" />,
     label: "LinkedIn",
-    sub: "linkedin.com/in/mursulab",
-    href: "https://linkedin.com/in/mursulab",
+    sub: "linkedin.com/in/luara-kelly-silva/",
+    href: "https://www.linkedin.com/in/luara-kelly-silva/",
   },
   {
-    //icon: <Mail size={20} aria-hidden="true" />,
     label: "Email",
-    sub: "hello@mursulab.com",
-    href: "mailto:hello@mursulab.com",
+    sub: "lua.kellly@gmail.com",
+    href: "mailto:lua.kellly@gmail.com",
   },
 ];
 
 export function FindMe() {
   return (
-    <Section id="contact">
-      <h2 className="sr-only">WHERE TO FIND ME</h2>
+    <Section
+      id="contact"
+      responsiveColumns={{
+        base: "1fr",
+        md: "1fr 2fr",
+      }}
+      gap="8"
+      className="px-6 py-8 max-w-4xl mx-auto"
+    >
+      <h2 className="sr-only">
+        Where to find me
+      </h2>
 
-      <Stack
-        direction="row"
-        wrap="wrap"
-        gap="6"
-        align="flex-start"
-        className="px-6 py-5"
-        style={{margin: "0 auto"}}
-      >
-        {/* left — description */}
-        <Stack gap="2" minWidth="3" style={{ flex: 1}}>
-          <Text
-            className="font-mono text-xs"
-          >
-            WHERE TO FIND ME
-          </Text>
-          <Text
-            className="text-sm text-muted"
-          >
-            I'm always open to interesting conversations, collaborations,
-            and new opportunities.
-          </Text>
-        </Stack>
+      {/* description */}
+      <Stack gap="2">
+        <Text className="font-mono text-xs">
+          WHERE TO FIND ME
+        </Text>
 
-        {/* right — links */}
-        <Stack
-          direction="row"
-          wrap="wrap"
-          gap="3"
-          style={{ flex: 2 }}
-        >
-          {LINKS.map(({ label, sub, href }) => (
-            <Button
-              key={label}
-              as="a"
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="surface px-3 py-4 rounded-lg"
-              style={{
-                flex: 1,
-                minWidth: "var(--min-w-3)",
-
-                justifyContent: "flex-start",
-              }}
-            >
-              <Stack gap="0">
-                <Text className="font-mono text-sm font-semibold">
-                  {label}
-                </Text>
-                <Text
-                  className="font-mono text-xs text-muted"
-                >
-                  {sub}
-                </Text>
-              </Stack>
-            </Button>
-          ))}
-        </Stack>
+        <Text className="text-sm text-muted">
+          I'm always open to interesting conversations,
+          collaborations and new opportunities.
+        </Text>
       </Stack>
+
+      {/* links */}
+      <Collection
+        minColumnWidth="12rem"
+        gap="3"
+      >
+        {LINKS.map(({ label, sub, href }) => (
+          <Button
+            key={label}
+            as="a"
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="surface border rounded-lg px-4 py-4"
+          >
+            <Stack gap="1">
+              <Text className="font-mono text-sm font-semibold">
+                {label}
+              </Text>
+
+              <Text className="font-mono text-xs text-muted">
+                {sub}
+              </Text>
+            </Stack>
+          </Button>
+        ))}
+      </Collection>
     </Section>
   );
 }

@@ -1,15 +1,16 @@
 import { Grid, GridProps } from "../primitives/layout/Grid";
 
-export type SectionProps = GridProps;
+export type PageShellProps = GridProps;
 
-export function Section({
+export function PageShell({
+  gap = "12",
   className,
   ...props
-}: SectionProps) {
+}: PageShellProps) {
   return (
     <Grid
-      as="section"
-      fullWidth
+      as="main"
+      gap={gap}
       className={className}
       {...props}
     />

@@ -1,4 +1,6 @@
 import { Section } from "../../ui-lib/semantic-wrappers/Section";
+import { Collection } from "../../ui-lib/semantic-wrappers/Collection";
+
 import { Stack } from "../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../ui-lib/primitives/typography/Text";
 //import { Box, Terminal2, Users, TrendingUp } from "lucide-react";
@@ -30,7 +32,9 @@ export function WhatIValue() {
         borderBottom: "1px solid var(--border)",
       }}
     >
-      <Text as="h2" className="sr-only">What I value</Text>
+      <Text as="h2" className="sr-only">
+        What I value
+      </Text>
 
       <Stack
         gap="6"
@@ -39,33 +43,40 @@ export function WhatIValue() {
           margin: "0 auto",
         }}
       >
-        <Text
-          className="font-mono text-xs"
-        >
+        <Text className="font-mono text-xs">
           WHAT I VALUE
         </Text>
 
-        <Stack direction="row" wrap="wrap" gap="5">
-          {VALUES.map(({ icon, title, description }) => (
-            <Stack
-              key={title}
-              gap="3"
-              minWidth="2"
-            >
-              <span className="text-muted">{icon}</span>
-              <Stack gap="1">
-                <Text className="font-mono text-sm font-semibold">
-                  {title}
-                </Text>
-                <Text
-                  className="font-mono text-xs text-muted"
-                >
-                  {description}
-                </Text>
+        <Collection
+          responsiveColumns={{
+            base: "1fr",
+            md: "repeat(3, 1fr)",
+          }}
+          gap="5"
+        >
+          {VALUES.map(
+            ({ icon, title, description }) => (
+              <Stack
+                key={title}
+                gap="3"
+              >
+                <span className="text-muted">
+                  {icon}
+                </span>
+
+                <Stack gap="1">
+                  <Text className="font-mono text-sm font-semibold">
+                    {title}
+                  </Text>
+
+                  <Text className="font-mono text-xs text-muted">
+                    {description}
+                  </Text>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
-        </Stack>
+            )
+          )}
+        </Collection>
       </Stack>
     </Section>
   );

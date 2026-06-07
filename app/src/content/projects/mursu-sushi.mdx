@@ -1,0 +1,129 @@
+---
+title: "Mursu Sushi Restaurant Architecture"
+
+description: "A full-stack restaurant ordering platform built with React, Express, MySQL, and real-time order tracking."
+
+status: "completed"
+
+startedAt: 2025-01-01
+
+stack:
+  - React
+  - TypeScript
+  - Express
+  - MySQL
+  - JWT
+  - Stripe
+  - SSE
+  - React Router
+
+featured: true
+
+steps:
+  - id: "project-foundation"
+    label: "Project Foundation"
+
+  - id: "frontend-architecture"
+    label: "Frontend Architecture"
+
+  - id: "backend-architecture"
+    label: "Backend Architecture"
+
+  - id: "authentication"
+    label: "Authentication & Authorization"
+
+  - id: "real-time-updates"
+    label: "Real-Time Order Tracking"
+
+  - id: "external-integrations"
+    label: "External Integrations"
+
+  - id: "deployment"
+    label: "Deployment"
+
+  - id: "reflection"
+    label: "Lessons Learned"
+---
+
+- See the video demonstration => [Mursu Sushi Restaurant demonstration](https://www.youtube.com/watch?v=jREubOZPitI)
+- Visit project Github => [Mursu Sushi Restaurant github](https://github.com/x-bananer/mursu-sushi-restaurant)
+- Chekout the deployed application => [Mursu Sushi Restaurant website](https://mursu-sushi-restaurant.vercel.app/)
+
+### My Contribution
+
+Mursu Sushi Restaurant was a team project developed by four devs.
+
+Although I contributed across multiple areas of the application, my primary responsibility was the order management workflow: the customer-facing order tracker, the real-time update system, and the administration dashboard used by restaurant staff.
+
+I owned end-to-end, from backend implementation and database interactions to frontend state management and user experience.
+
+### Order Tracking System
+
+The goal of the order tracker was straightforward: once a customer places an order, they should be able to follow its progress without refreshing the page.
+
+An order moves through several stages during preparation:
+
+```txt
+Received
+    ↓
+Preparing
+    ↓
+Ready
+    ↓
+Completed
+```
+
+The challenge was keeping the customer interface synchronized with actions performed by restaurant staff in the administration panel.
+
+### Real-Time Updates with SSE
+
+To support live updates, I implemented Server-Sent Events (SSE).
+
+Whenever an administrator updates an order status, the backend emits an event to connected clients. Customers viewing the order tracker automatically receive the update and the interface reflects the new state immediately.
+
+```txt
+Admin Dashboard
+        ↓
+Update Order Status
+        ↓
+Backend Emits SSE Event
+        ↓
+Connected Client Receives Event
+        ↓
+Order Tracker Updates
+```
+
+For this project, SSE provided a lightweight alternative to WebSockets while still delivering a real-time user experience.
+
+### Administration Dashboard
+
+I also developed the administration dashboard responsible for processing customer orders.
+
+The dashboard allows restaurant staff to:
+
+- View incoming orders
+- Process active orders
+- Update order statuses
+- Trigger live updates for connected customers
+
+Because the dashboard and order tracker represent different views of the same workflow, maintaining consistency between both interfaces was an important part of the implementation.
+
+Rather than treating them as separate features, I approached them as a single system with two users interacting from different perspectives.
+
+### What I Learned
+
+The most valuable lesson from this work was understanding how a feature behaves across multiple layers of an application.
+
+A status update is not simply a button click.
+
+It involves:
+
+- Updating persistent data
+- Applying business rules
+- Broadcasting events
+- Synchronizing client state
+- Updating the user interface
+
+Implementing the entire workflow helped me better understand how frontend and backend systems collaborate to deliver a seamless user experience.
+
+It also sparked a deeper interest in application architecture, real-time systems, and designing features that span the full stack.

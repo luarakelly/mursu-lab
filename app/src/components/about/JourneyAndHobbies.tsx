@@ -59,88 +59,79 @@ function JourneyDot({ isLast }: { isLast?: boolean }) {
 export function JourneyAndHobbies() {
   return (
     <Section
-      direction="row"
-      wrap="wrap"
-      gap="6"
-      align="flex-start"
+      responsiveColumns={{
+        base: "1fr",
+        md: "1fr 1fr",
+      }}
+      gap="8"
       className="px-6 py-5 max-w-xl"
-      style={{ margin: "0 auto"}}
+      style={{ margin: "0 auto" }}
     >
+      {/* Journey */}
+      <Stack gap="4">
+        <Text className="font-mono text-xs">
+          MY JOURNEY
+        </Text>
 
-        {/* left — journey timeline */}
-        <Stack
-          gap="4"
-          minWidth="3"
-          style={{ flex: 1 }}
-        >
-          <Text
-            className="font-mono text-xs"
-            style={{ letterSpacing: "0.08em" }}
-          >
-            MY JOURNEY
-          </Text>
+        <Steps direction="column">
+          {JOURNEY.map((item, i) => (
+            <StepItem
+              key={item.year}
+              label={
+                <JourneyDot
+                  isLast={i === JOURNEY.length - 1}
+                />
+              }
+            >
+              <Stack gap="1" className="pb-2">
+                <Text className="font-mono text-sm">
+                  <Text>{item.year}</Text> — {item.title}
+                </Text>
 
-          <Steps direction="column">
-            {JOURNEY.map((item, i) => (
-              <StepItem
-                key={item.year}
-                label={<JourneyDot isLast={i === JOURNEY.length - 1} />}
-              >
-                <Stack gap="1" className="pb-2">
-                  <Text className="font-mono text-sm">
-                    <Text>
-                      {item.year}
-                    </Text>
-                    {" "}
-                    — {item.title}
-                  </Text>
-                  <Text
-                    className="font-mono text-xs text-muted"
-                  >
-                    {item.description}
-                  </Text>
-                </Stack>
-              </StepItem>
-            ))}
-          </Steps>
-        </Stack>
+                <Text className="font-mono text-xs text-muted">
+                  {item.description}
+                </Text>
+              </Stack>
+            </StepItem>
+          ))}
+        </Steps>
+      </Stack>
 
-        {/* right — outside the terminal */}
-        <Stack
-          gap="4"
-          minWidth="3"
-          style={{ flex: 1 }}
-        >
-          <Text
-            className="font-mono text-xs"
-            style={{ letterSpacing: "0.08em" }}
-          >
-            OUTSIDE THE TERMINAL
-          </Text>
+      {/* Hobbies */}
+      <Stack gap="4">
+        <Text className="font-mono text-xs">
+          OUTSIDE THE TERMINAL
+        </Text>
 
-          <Stack gap="3">
-            {HOBBIES.map(({ icon, title, description }) => (
+        <Stack gap="3">
+          {HOBBIES.map(
+            ({ icon, title, description }) => (
               <Card
                 key={title}
                 className="surface p-4 rounded-lg"
               >
                 <Stack gap="3">
-                  <Stack direction="row" align="center" gap="3">
+                  <Stack
+                    direction="row"
+                    align="center"
+                    gap="3"
+                  >
                     {icon}
+
                     <Text className="font-mono text-sm font-semibold">
                       {title}
                     </Text>
                   </Stack>
-                  <Text
-                    className="text-sm text-muted"
-                  >
+
+                  <Text className="text-sm text-muted">
                     {description}
                   </Text>
                 </Stack>
               </Card>
-            ))}
-          </Stack>
+            )
+          )}
         </Stack>
+      </Stack>
     </Section>
   );
 }

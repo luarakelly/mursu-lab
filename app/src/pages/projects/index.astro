@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { ProjectsPageHeader } from "../../components/projects/ProjectsPageHeader";
+import { ProjectsHeader } from "../../components/projects/ProjectsHeader";
 import { ProjectsSection } from "../../components/projects/ProjectsSection";
 
 const allProjects = await getCollection("projects");
@@ -35,6 +35,6 @@ const metrics = {
 ---
 
 <BaseLayout>
-  <ProjectsPageHeader metrics={metrics} />
+  <ProjectsHeader metrics={metrics} />
   <ProjectsSection client:load projects={projects} allTags={allTags} />
 </BaseLayout>

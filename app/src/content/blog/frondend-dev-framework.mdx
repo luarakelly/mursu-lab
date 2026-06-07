@@ -1,0 +1,234 @@
+---
+title: "Designing a Project Framework: Frontend Walkthrough"
+description: "A stage-by-stage guide to starting a frontend project with clarity — from MVP definition to a working static structure ready for real data."
+date: 2026-05-18
+tags:
+  - process
+featured: false
+draft: false
+---
+
+## Before You Open Your Editor
+
+The [previous article](/blog/project-framework) introduced the
+framework and its seven stages. This article applies those stages to a frontend project. The
+stages are the same — what changes is what each one looks like when the domain is a user interface.
+
+The examples draw from my own stack: Astro, React, TypeScript, and Vite. Where the approach is
+universal I describe it that way. Where the example is stack-specific, I say so.
+
+---
+
+## Stage 1 — Idea: Define the MVP
+
+The Idea stage is covered in the foundation article. From that artocle I would like to hightlight the
+architecture scale decision, which directly affects how much structural investment is worth making
+upfront:
+
+| Scale  | Pattern                    | Rough size      |
+| ------ | -------------------------- | --------------- |
+| Small  | Monolith                   | 5k – 9k lines   |
+| Medium | Modular monolith           | 10k – 50k lines |
+| Large  | Services / micro-frontends | 50k+ lines      |
+
+A small project over-engineered into a modular monolith wastes more time than it saves. Decide
+the scale before designing the structure.
+
+**Mursu Lab.** for exmaple. Core actions: user views projects, reads articles, filters by tag and stack.
+Constraints: no authentication, no CMS, no dynamic backend. Scale: medium — enough to justify a
+shared component layer, not enough for a micro-frontend split.
+
+---
+
+## Stage 2 — Research
+
+Research ends when you can make architectural decisions — not when you've read everything
+available. A useful test: if you still can't sketch the folder structure after your research,
+you haven't answered the right questions yet.
+
+---
+
+## Stage 3 — Architecture
+
+Before writing any component code, decide three things: the visual reference, the folder
+structure, and the component strategy.
+
+### UI Mockup First
+
+Start with a visual. Tools like [Stitch](https://stitch.withgoogle.com) or
+[Figma](https://figma.com) work well. The goal is not a pixel-perfect design — it is a reference
+that answers layout questions before they get buried inside code. A mockup forces you to think
+about responsive behavior, information hierarchy, and component boundaries upfront.
+
+### Folder Structure
+
+Define the folder structure before any real files go in it. The shape of your folders reflects
+the shape of your thinking. For a medium-scale frontend project:
+
+```
+src/
+  assets/          # images, fonts, static files
+  styles/          # global CSS: color palet, app layer exclusive layout.
+  components/
+    shell/         # app layout, header, footer, navigation, base cards, modals
+    page-name/     # feature components scoped to a specific page
+  pages/           # page-level components
+  hooks/           # shared stateful logic
+  utils/           # pure functions, formatters, helpers
+  contexts/        # React context providers (if applicable)
+```
+
+Empty folders with a `.gitkeep` are fine at this stage. The point is that the structure is
+decided, not filled, in dis stagle you should define what goes where.
+
+### Component Strategy
+
+Decide how you will handle styling and component composition before writing components. Will you
+use a CSS framework, a token system, or raw CSS? Will components be purely presentational or
+will they own state? Where is the boundary between layout components and feature components?
+
+These decisions made now prevent structural refactors mid-implementation. I like to keep one component
+as the state manager and build small ui components that the manager will use.
+
+---
+
+## Stage 4 — Foundation
+
+The Foundation frontend-specific checklist is:
+
+```bash
+npm install --save-dev prettier eslint typescript vitest
+```
+
+**Prettier:**
+
+```json
+// .prettierrc
+{
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 90
+}
+```
+
+**ESLint** (flat config, TypeScript + React):
+
+```js
+// eslint.config.js
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
+  },
+);
+```
+
+**TypeScript** (Vite + React):
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
+  },
+  "include": ["src"]
+}
+```
+
+**Package scripts** — standardized names regardless of what runs underneath:
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "test": "vitest"
+  }
+}
+```
+
+Before moving on, verify all four commands exit cleanly on an empty project. If any fail, fix
+them now.
+
+---
+
+## Stage 5 — Implementation
+
+Implementation happens in two distinct passes. Mixing them is one of the most common sources of
+unnecessary complexity.
+
+### Pass 1 — Static Structure with Mock Data
+
+Build the entire interface against static mock data first.
+
+Create a `mockup/` folder inside `src/` and populate it with data that has the exact shape your
+components will eventually receive from a real source. If a page lists blog posts, write a
+`mockup/posts.ts` file. If a project card needs a status field, that field exists in the mock.
+
+```ts
+// src/mockup/posts.ts
+export const posts = [
+  {
+    slug: "first-post",
+    title: "From Idea to System",
+    description: "How I started building my development journal.",
+    date: "2026-05-11",
+    tags: ["process", "meta"],
+    readTime: 4,
+  },
+];
+```
+
+Build the layout against this data. Verify that layouts, component composition, responsive
+behavior, and navigation all work correctly before any real data source exists. Add utilities
+and unit tests as you build them:
+
+```ts
+// src/utils/formatDate.test.ts
+import { describe, it, expect } from "vitest";
+import { formatDate } from "./formatDate";
+
+describe("formatDate", () => {
+  it("formats ISO string to readable date", () => {
+    expect(formatDate("2026-05-11")).toBe("May 11, 2026");
+  });
+});
+```
+
+Write the test when you write the utility. The context is still fresh. Retroactive testing
+increses the risk of forgetting to test some import part. Believe-me, I know it is hard to not just
+move on to the next task, but it realy pays off doing the tests when it is still fresh code.
+
+### Pass 2 — Replace Mock Data with Real Logic
+
+Once the static structure is verified, progressively replace mock data with real sources: API
+calls, CMS queries, file-system reads. The interface already exists and already works. You are
+replacing the data source, not redesigning the structure.
+
+---
+
+## Stages 6 and 7 — Documentation and Reflection
+
+Both are covered in the foundation article and apply here without change. The short version:
+documentation is written continuously, but focues on the final version of the code.
+Reflection is what turns a finished project into an improved starting point for the next one.

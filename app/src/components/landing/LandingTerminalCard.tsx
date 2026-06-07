@@ -1,9 +1,5 @@
 import { Stack } from "../../ui-lib/primitives/layout/Stack";
 import { Text } from "../../ui-lib/primitives/typography/Text";
-import { Button } from "../../ui-lib/primitives/inputs/Button";
-import { Steps } from "../../ui-lib/semantic-wrappers/Steps";
-import { StepItem } from "../../ui-lib/patterns/static/StepItem";
-import { CircleCheck, CircleDot } from "lucide-react";
 import { TerminalCards } from "../shell/terminal-card/TerminalCards";
 
 type Step = { id: string; label: string; done: boolean };

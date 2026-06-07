@@ -1,0 +1,85 @@
+---
+title: "Personal UI SDK"
+description: "A personal UI library built around structure, composition, and the idea that solving a problem once should be enough."
+date: 2026-05-11
+tags:
+  - ui-sdk
+  - dev-tools
+
+project: "personal-ui-sdk"
+featured: true
+draft: false
+---
+
+# Why I Built It
+
+This UI library started from a very practical problem.
+
+Every time I started a new project, I found myself rebuilding the same things: responsive containers, search and filtering logic, pagination — the kind of work that feels productive but is really just repetition.
+I tried using existing UI frameworks and component libraries, but they often ended up being too opinionated about visual style. In other cases, I had to fight the framework to get the behavior I wanted. Most of them also ship hundreds of components and countless configuration options, which introduces more decisions than I actually want to make at the start of a project.
+Over time, I realized that the energy I was spending searching for a “better” solution could instead go into building my own — something aligned with the way I naturally think about interfaces.
+
+The goal was never to build a large component catalog. It was to create a small, focused set of primitives and semantic wrappers that make interface development predictable and easy to reason about. The emphasis is not on visual appearance, but on structural clarity — a foundation that can support many different designs without changing.
+Alongside the components, I also built a set of reusable hooks so that interactive patterns are just as composable as layout primitives.
+
+---
+
+# How It's Structured
+
+The library is organized into four layers: **CSS Tokens → Primitives → Semantic Wrappers → Patterns**
+
+CSS Tokens: define the design vocabulary: spacing, typography scale, radius, browser reset, and other foundational values. Everything else in the system references these tokens, ensuring consistency across the entire UI.
+
+Primitives: are the foundational building blocks: `Flex`, `Stack`, `Grid`, `Button`, `Input`, `Text`. They focus on layout and base behavior only, without enforcing visual opinions. Their goal is to be predictable, flexible, and reusable in any context.
+
+Semantic Wrappers: include components like `Header`, `Footer`, `Section`, `Card`, `Aside`, `Steps`, `List`, `Navigation`, and `Article`. They describe meaning, not appearance. Internally, they are built on top of `Stack` or `Grid`, which means layout-related props like `gap`, `direction`, and `align` behave consistently everywhere.
+
+Patterns: are the highest abstraction layer.
+**Static patterns** like `StepItem` handle recurring structural layouts.
+**Interactive patterns** like `Dropdown` and `Pagination` manage UI behavior.
+**Hooks** like `useSearch`, `useFilter`, and `usePagination` handle shared stateful logic for data-driven interfaces.
+
+---
+
+# Core Principles
+
+A few ideas guided every decision in the system:
+
+Reusability: If I solve a problem once, I should not have to solve it again. Every component and hook is designed to be transferable across projects without modification.
+Consistency: Layout, spacing, and interaction patterns should behave predictably across the entire system. Consistency comes from shared primitives and tokens, not manual discipline.
+Automatic Responsiveness: Layouts adapt to available space by default. The `Grid` component supports `responsiveColumns`, and `Stack` handles most single-axis layouts without additional configuration.
+Composition Over Complexity: Small building blocks should combine naturally into larger interfaces. For example, a `BlogSection` can compose `Sidebar`, `useSearch`, `useFilter`, `usePagination`, and `ContentCard` — each focused, each independent.
+Separation of Concerns: Layout lives in components. Visual styling lives in tokens. Inline styles are reserved for edge cases. This separation keeps components readable and reusable across different visual themes.
+Developer Experience: The API should remain simple enough that I can revisit the code months later and immediately understand what it does.
+
+---
+
+# Biggest Challenge
+
+The biggest challenge was resisting over-abstraction and balacing with how mauch should be planned before testing it. I alredy knew that we should not over engineer before testing it, but some planning is required before doing anything, and finding the sweet spot between it is quite hard.
+
+At one point, I started adding too many layers: slots everywhere, builder-style APIs, and deeply configurable components. Each component began accumulating too many props, and the cognitive load increased significantly.
+Eventually I realized that not every abstraction is necessary.
+
+---
+
+# Some of the key lessons:
+
+- Designing APIs is difficult and requires a many iterations.
+- Simplicity emerges from refining ideas, not adding them.
+- Every reusable component must have a clear and narrow responsibility.
+- Accessibility should be considered from the beginning, not added later.
+- Responsive design becomes much easier when layouts are inherently flexible.
+- API cognitive load is just as important as UI output.
+
+---
+
+# Conclusion
+
+Ironically, this library exists because I wanted to think less about UI architecture. In practice, it became one of the most educational projects I have worked on.
+It forced me to think deeply about component design, composition, accessibility, and system-level thinking.
+
+This library is not trying to replace existing UI frameworks or cover every possible use case. Instead, it defines a foundation — a structured layer of primitives, composition, and semantics that makes interface development easier to reason about.
+
+When the structure is already in place, development shifts away from architectural decisions and toward actual problem-solving.
+That is the real goal: less friction in the UI layer, more focus on building meaningful features.
