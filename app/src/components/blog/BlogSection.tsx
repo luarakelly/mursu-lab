@@ -90,11 +90,7 @@ export function BlogSection({ posts, allTags }: Props) {
           </List>
         ) : (
           <Text
-            className="font-mono text-sm"
-            style={{
-              color: "var(--foreground-muted)",
-              padding: "var(--space-6) 0",
-            }}
+            className="font-mono text-sm text-muted px-6"
           >
             No posts match your filters.
           </Text>

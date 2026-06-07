@@ -13,13 +13,13 @@ const LINKS = [
   },
   {
     label: "LinkedIn",
-    sub: "linkedin.com/in/mursulab",
-    href: "https://linkedin.com/in/mursulab",
+    sub: "linkedin.com/in/luara-kelly-silva/",
+    href: "https://www.linkedin.com/in/luara-kelly-silva/",
   },
   {
     label: "Email",
-    sub: "hello@mursulab.com",
-    href: "mailto:hello@mursulab.com",
+    sub: "lua.kellly@gmail.com",
+    href: "mailto:lua.kellly@gmail.com",
   },
 ];
 
